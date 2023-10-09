@@ -18,7 +18,7 @@ mdc: true
 
 # The workshop you've been *await*ing for
 
-<img src="qr.png"  class="absolute -bottom-1 -left-1 w-50" />
+<img src="/qr.png"  class="absolute -bottom-1 -left-1 w-50" />
 
 Leéh Péter
 
