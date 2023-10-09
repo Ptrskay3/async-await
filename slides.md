@@ -11,7 +11,7 @@ info: |
   Learn more at [Sli.dev](https://sli.dev)
 drawings:
   persist: true
-transition: slide-left
+transition: fade
 title: Welcome to Slidev
 mdc: true
 ---
@@ -142,9 +142,63 @@ image: https://source.unsplash.com/collection/94734566/1920x1080
 
 # Code
 
-Use code snippets and get the highlighting directly![^1]
+```js {all|1|3|all} {maxHeight:'100px'}
+function getUserAvatar(user) { ... }
 
-```ts {all|2|1-6|9|all}
+const avatars = users.map(user => getUserAvatar(user));
+```
+
+<div v-after>
+
+## 10s.
+
+</div>
+
+---
+
+# Code
+
+```js
+async function getUserAvatar(user) { ... }
+
+const avatars = users.map(async (user) => await getUserAvatar(user));
+```
+
+<arrow v-click x1="400" y1="250" x2="290" y2="160" color="#564" width="3" arrowSize="1" />
+<arrow v-click x1="500" y1="250" x2="390" y2="160" color="#564" width="3" arrowSize="1" />
+
+---
+
+# Code
+
+```js
+async function getUserAvatar(user) { ... }
+
+const futures = users.map(user => getUserAvatar(user));
+
+const avatars = [];
+for await (const avatar of futures) {
+  avatars.push(avatar);
+}
+```
+
+---
+
+# Code
+
+```js
+async function getUserAvatar(user) { ... }
+
+const futures = users.map(user => getUserAvatar(user))
+
+await Promise.all(futures)
+```
+
+---
+
+<div v-after>
+
+```ts {1|all}
 interface User {
   id: number;
   firstName: string;
@@ -159,9 +213,7 @@ function updateUser(id: number, update: User) {
 }
 ```
 
-<arrow v-click="[3, 4]" x1="400" y1="420" x2="230" y2="330" color="#564" width="3" arrowSize="1" />
-
-[^1]: [Learn More](https://sli.dev/guide/syntax.html#line-highlighting)
+</div>
 
 <style>
 .footnotes-sep {
@@ -365,7 +417,7 @@ sequenceDiagram
 
 ```mermaid {theme: 'neutral', scale: 0.8}
 graph TD
-B[Text] --> C{Decision}
+B[Text] --> C[Decision]
 C -->|One| D[Result 1]
 C -->|Two| E[Result 2]
 ```
