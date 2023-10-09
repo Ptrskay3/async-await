@@ -196,6 +196,38 @@ await Promise.all(futures)
 
 ---
 
+```ts
+async function getUserAvatar(user) {
+  const defaultSize = { width: 420, height: 69 };
+
+  const result = await queryDB(...);
+  if result.preferredSize {
+    return resize(result.imageBuffer, result.preferredSize)
+  }
+  return return.imageBuffer;
+
+}
+
+```
+
+---
+
+```ts {all|2-5|6|7-10}
+async function getUserAvatar(user) {
+  {
+    const defaultSize = { width: 420, height: 69 };
+    const future = queryDB(...)
+  }
+    yield
+  {
+    const result = future.output()
+    return resize(result.imageBuffer, result.preferredSize || defaultSize)
+  }
+}
+```
+
+---
+
 <div v-after>
 
 ```ts {1|all}
