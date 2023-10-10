@@ -7,7 +7,6 @@ import (
 )
 
 func main() {
-
 	users := [4]string{"A", "B", "C", "D"}
 	for _, user := range users {
 		fmt.Println(getUser(user))

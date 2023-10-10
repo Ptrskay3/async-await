@@ -10,6 +10,7 @@ import (
 func main() {
 	var wg sync.WaitGroup
 	users := [4]string{"A", "B", "C", "D"}
+
 	for _, user := range users {
 		wg.Add(1)
 		u := user

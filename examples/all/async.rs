@@ -9,11 +9,11 @@ use futures::future::join_all;
 
 #[tokio::main(flavor = "current_thread")]
 async fn main() {
-
-    join_all(["A", "B", "C", "D"].into_iter().map(|name| async {
-        let name = get_user(name).await;
-        println!("{name}")
-    })).await;
+    let tasks = ["A", "B", "C", "D"].into_iter().map(|name| async {
+        get_user(name).await
+    });
+    let users = join_all(tasks).await;
+    println!("{users:?}");
 }
 
 async fn get_user(name: &str) -> String {

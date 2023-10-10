@@ -5,14 +5,10 @@ async function getUser(user) {
 
 const users = ['A', 'B', 'C', 'D'];
 
-const futures = users.map((user) => getUser(user));
+const promises = users.map((user) => getUser(user));
 
-async function main() {
-  const results = [];
-  for await (const avatar of futures) {
-    results.push(avatar);
-  }
-  console.log(results);
+const results = [];
+for await (const avatar of promises) {
+  results.push(avatar);
 }
-
-main()
+console.log(results);
