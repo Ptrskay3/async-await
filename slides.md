@@ -148,12 +148,6 @@ function getUserAvatar(user) { ... }
 const avatars = users.map(user => getUserAvatar(user));
 ```
 
-<div v-after>
-
-## 10s.
-
-</div>
-
 ---
 
 # Code
@@ -164,8 +158,23 @@ async function getUserAvatar(user) { ... }
 const avatars = users.map(async (user) => await getUserAvatar(user));
 ```
 
+<arrow v-click x1="200" y1="200" x2="100" y2="120" color="#564" width="3" arrowSize="1" />
 <arrow v-click x1="400" y1="250" x2="290" y2="160" color="#564" width="3" arrowSize="1" />
 <arrow v-click x1="500" y1="250" x2="390" y2="160" color="#564" width="3" arrowSize="1" />
+
+<div v-click>
+<div>
+<br />
+<br />
+<br />
+<br />
+
+```js
+[Promise { <pending> }, Promise { <pending> }, Promise { <pending> }, Promise { <pending> }]
+```
+
+</div>
+</div>
 
 ---
 
@@ -201,24 +210,21 @@ async function getUserAvatar(user) {
   const defaultSize = { width: 420, height: 69 };
 
   const result = await queryDB(...);
-  if result.preferredSize {
-    return resize(result.imageBuffer, result.preferredSize)
-  }
-  return return.imageBuffer;
-
+  return resize(result.imageBuffer, result.preferredSize || defaultSize)
 }
 
 ```
 
 ---
 
-```ts {all|2-5|6|7-10}
+```ts {all|2-5|6-7|8-11}
 async function getUserAvatar(user) {
   {
     const defaultSize = { width: 420, height: 69 };
     const future = queryDB(...)
   }
-    yield
+    // await future
+    yield // ~> return
   {
     const result = future.output()
     return resize(result.imageBuffer, result.preferredSize || defaultSize)
