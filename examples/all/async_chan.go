@@ -19,8 +19,8 @@ func main() {
 			messages <- getUser(u)
 			wg.Done()
 		}()
-
 	}
+
 	go func() {
 		wg.Wait()
 		close(messages)

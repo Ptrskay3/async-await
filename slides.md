@@ -142,6 +142,60 @@ image: https://source.unsplash.com/collection/94734566/1920x1080
 
 # Code
 
+```rust {all|11-16|6-8|all}
+//! ```cargo
+//! [dependencies]
+//! reqwest = { version = "0.11", features = ["blocking"] }
+//! ```
+fn main() {
+    for user in ["A", "B", "C", "D"] {
+        println!("{}", get_user(user));
+    }
+}
+
+fn get_user(name: &str) -> String {
+    reqwest::blocking::get(format!("http://127.0.0.1:3001/{name}"))
+        .unwrap()
+        .text()
+        .unwrap()
+}
+```
+
+---
+
+# Code
+
+```rust
+//! ```cargo
+//! [dependencies]
+//! reqwest = { version = "0.11", features = ["blocking"] }
+//! ```
+fn main() {
+    for user in ["A", "B", "C", "D"] {
+        println!("{}", get_user(user));
+    }
+}
+
+fn get_user(name: &str) -> String {
+    reqwest::blocking::get(format!("http://127.0.0.1:3001/{name}"))
+        .unwrap()
+        .text()
+        .unwrap()
+}
+```
+
+<br />
+
+```bash
+╰─❯ timeit cargo +nightly -Zscript -q sync.rs
+8sec 88ms 624µs 988ns
+
+```
+
+---
+
+# Code
+
 ```js {all|1|3|all} {maxHeight:'100px'}
 function getUserAvatar(user) { ... }
 
