@@ -192,6 +192,8 @@ fn get_user(name: &str) -> String {
 
 ```
 
+<arrow v-click x1="450" y1="500" x2="450" y2="550" color="#564" width="3" arrowSize="1" />
+
 ---
 
 # Code
