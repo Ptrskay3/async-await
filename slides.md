@@ -140,9 +140,45 @@ image: https://source.unsplash.com/collection/94734566/1920x1080
 
 ---
 
+# Why?
+
+Look around you. What do you see?
+
+Do you see a single-stepping world doing one thing at a time?
+
+Or do you see a complex world of interacting, independently behaving pieces?
+
+That's why. Sequential processing on its own does not model the world's behavior.
+
+---
+
+# What is concurrency?
+
+Concurrency is the composition of independently executing computations.
+
+Concurrency is a way to structure software, particularly as a way to write clean code that interacts well with the real world.
+
+It is not parallelism.
+
+# TODO: bring in leaky abstractions, and the example of async
+
+---
+
+# Concurrency
+
+Concurrent programming is less mature and "standardized" than regular, sequential programming. As a result, we express concurrency differently depending on which concurrent programming model the language is supporting. A brief overview of the most popular concurrency models can help you understand how asynchronous programming fits within the broader field of concurrent programming:
+
+- **OS threads**
+- **Event-driven programming**
+- **Coroutines, green threads**
+- **Actor model**
+- **Async**
+
+---
+
 # Code
 
-```rust {all|11-16|6-8|all}
+````rust {all|11-16|6-8|all}
 //! ```cargo
 //! [dependencies]
 //! reqwest = { version = "0.11", features = ["blocking"] }
@@ -158,6 +194,92 @@ fn get_user(name: &str) -> String {
         .unwrap()
         .text()
         .unwrap()
+}
+````
+
+---
+
+# JavaScript?
+
+```js
+function getUser(user) {
+  return fetch(`http://127.0.0.1:3001/${user}`).then((resp) => resp.text());
+}
+
+for (const user of ['A', 'B', 'C', 'D']) {
+  getUser(user).then((res) => console.log(res));
+}
+```
+
+---
+
+# JavaScript?
+
+```js
+function getUser(user) {
+  return fetch(`http://127.0.0.1:3001/${user}`).then((resp) => resp.text());
+}
+
+for (const user of ['A', 'B', 'C', 'D']) {
+  getUser(user).then((res) => console.log(res));
+}
+```
+
+<br />
+<br />
+
+```bash
+╰─❯ timeit deno run --allow-net sync_first_attempt.js
+B
+A
+C
+D
+2sec 141ms 784µs
+```
+
+<br />
+<div v-click>
+This is clearly running concurrently.
+</div>
+
+---
+
+# But why?
+
+This is equivalent (roughly) with
+
+```js
+async function getUser(name) {
+  const response = await fetch(`http://127.0.0.1:3001/${name}`);
+  const result = await response.text();
+  return result;
+}
+
+const users = ['A', 'B', 'C', 'D'];
+const promises = users.map((name) => getUser(name));
+
+for await (const user of promises) {
+  console.log(user);
+}
+```
+
+<li v-click>
+- the `await` expression never blocks the main thread and only defers execution of code that actually depends on the result
+</li>
+
+---
+
+# JavaScript?
+
+```js {all|1-5|7-9|all}
+async function getUser(name) {
+  const response = await fetch(`http://127.0.0.1:3001/${name}`);
+  const result = await response.text();
+  return result;
+}
+
+for (const user of ['A', 'B', 'C', 'D']) {
+  console.log(await getUser(user));
 }
 ```
 
@@ -165,7 +287,7 @@ fn get_user(name: &str) -> String {
 
 # Code
 
-```rust
+````rust
 //! ```cargo
 //! [dependencies]
 //! reqwest = { version = "0.11", features = ["blocking"] }
@@ -182,7 +304,7 @@ fn get_user(name: &str) -> String {
         .text()
         .unwrap()
 }
-```
+````
 
 <br />
 

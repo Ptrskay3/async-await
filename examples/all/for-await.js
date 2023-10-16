@@ -1,14 +1,12 @@
-async function getUser(user) {
-  let result = await fetch(`http://127.0.0.1:3001/${user}`).then((data) => data.text());
+async function getUser(name) {
+  const response = await fetch(`http://127.0.0.1:3001/${name}`);
+  const result = await response.text();
   return result;
 }
 
 const users = ['A', 'B', 'C', 'D'];
+const promises = users.map((name) => getUser(name));
 
-const promises = users.map((user) => getUser(user));
-
-const results = [];
-for await (const avatar of promises) {
-  results.push(avatar);
+for await (const user of promises) {
+  console.log(user);
 }
-console.log(results);
