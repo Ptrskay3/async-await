@@ -187,9 +187,8 @@ fn get_user(name: &str) -> String {
 <br />
 
 ```bash
-╰─❯ timeit cargo +nightly -Zscript -q sync.rs
+╰─❯ timeit cargo +nightly -qZscript sync.rs
 8sec 88ms 624µs 988ns
-
 ```
 
 <arrow v-click x1="450" y1="500" x2="450" y2="550" color="#564" width="3" arrowSize="1" />
@@ -239,12 +238,9 @@ const avatars = users.map(async (user) => await getUserAvatar(user));
 ```js
 async function getUserAvatar(user) { ... }
 
-const futures = users.map(user => getUserAvatar(user));
+const futures = users.map(user => getUserAvatar(user))
 
-const avatars = [];
-for await (const avatar of futures) {
-  avatars.push(avatar);
-}
+await Promise.all(futures)
 ```
 
 ---
@@ -254,9 +250,12 @@ for await (const avatar of futures) {
 ```js
 async function getUserAvatar(user) { ... }
 
-const futures = users.map(user => getUserAvatar(user))
+const futures = users.map(user => getUserAvatar(user));
 
-await Promise.all(futures)
+const avatars = [];
+for await (const avatar of futures) {
+  avatars.push(avatar);
+}
 ```
 
 ---
