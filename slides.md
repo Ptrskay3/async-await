@@ -161,6 +161,28 @@ Concurrency is a way to structure software, particularly as a way to write clean
 It is not parallelism.
 
 # TODO: bring in leaky abstractions, and the example of async
+# Also TODO: mention that CPU is much faster than network, memory, disk, etc..
+
+---
+
+# Concurrency is not parallelism
+
+Concurrency is not parallelism, although it enables parallelism.
+
+
+You need to fry 5 eggs, sunny side up. To cook an egg you crack it onto the griddle, wait for a few minutes, then take it off.
+
+The sequential approach is to fry the first egg to completion, then fry the second egg to completion, and so on, until you have 5 fried eggs.
+
+The parallel approach is to hire 5 cooks, tell each of them to fry an egg, and wait until they are all finished.
+
+The concurrent approach is that you cook all 5 eggs yourself the way you would actually do it. That is, you quickly crack each egg onto the pan, then take each one off when it's ready.
+
+The reason you're able to save time without having to hire 5 cooks is because the number of cooks wasn't what was limiting you from going faster. It takes a couple minutes to cook an egg, but it only occupies your attention and your hands for a few seconds at the beginning and end.
+
+The Go runtime and modern OS runtimes are similarly smart. They know that while your thread is waiting to receive a network response, the processor can look for other things to occupy it's attention.
+
+The larger picture of concurrency is concerned not primarily with the number of processors, but with resource contention in general. The execution of tasks demands resources, and we cannot use more resources than are available. Processors are one resource, but there is also memory storage, memory bandwidth, network bandwidth, file handles, and the list goes on.
 
 ---
 
