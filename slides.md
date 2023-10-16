@@ -161,14 +161,14 @@ Concurrency is a way to structure software, particularly as a way to write clean
 It is not parallelism.
 
 # TODO: bring in leaky abstractions, and the example of async
+
 # Also TODO: mention that CPU is much faster than network, memory, disk, etc..
 
 ---
 
 # Concurrency is not parallelism
 
-Concurrency is not parallelism, although it enables parallelism.
-
+.. although it enables parallelism.
 
 You need to fry 5 eggs, sunny side up. To cook an egg you crack it onto the griddle, wait for a few minutes, then take it off.
 
@@ -200,7 +200,7 @@ Concurrent programming is less mature and "standardized" than regular, sequentia
 
 # Code
 
-````rust {all|11-16|6-8|all}
+```rust {all|11-16|6-8|all}
 //! ```cargo
 //! [dependencies]
 //! reqwest = { version = "0.11", features = ["blocking"] }
@@ -217,7 +217,18 @@ fn get_user(name: &str) -> String {
         .text()
         .unwrap()
 }
-````
+```
+
+<br />
+
+<div v-click>
+```bash
+╰─❯ timeit cargo +nightly -qZscript sync.rs
+8sec 88ms 624µs 988ns
+```
+</div>
+
+<arrow v-click x1="450" y1="500" x2="450" y2="550" color="#564" width="3" arrowSize="1" />
 
 ---
 
@@ -263,31 +274,6 @@ D
 <div v-click>
 This is clearly running concurrently.
 </div>
-
----
-
-# But why?
-
-This is equivalent (roughly) with
-
-```js
-async function getUser(name) {
-  const response = await fetch(`http://127.0.0.1:3001/${name}`);
-  const result = await response.text();
-  return result;
-}
-
-const users = ['A', 'B', 'C', 'D'];
-const promises = users.map((name) => getUser(name));
-
-for await (const user of promises) {
-  console.log(user);
-}
-```
-
-<li v-click>
-- the `await` expression never blocks the main thread and only defers execution of code that actually depends on the result
-</li>
 
 ---
 
