@@ -13,9 +13,9 @@ func main() {
 
 	for _, user := range users {
 		wg.Add(1)
-		u := user
+		user := user
 		go func() {
-			fmt.Println(getUser(u))
+			fmt.Println(getUser(user))
 			wg.Done()
 		}()
 	}

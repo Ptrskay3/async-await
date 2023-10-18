@@ -18,7 +18,7 @@ mdc: true
 
 # The workshop you've been *await*ing for
 
-<img src="/qr.png"  class="absolute -bottom-1 -left-1 w-50" />
+<img src="/qr.png" class="absolute -bottom-1 -left-1 w-50" />
 
 Leéh Péter
 
@@ -135,54 +135,99 @@ Hover on the bottom-left corner to see the navigation's controls panel, [learn m
 
 ---
 
-layout: image-right
-image: https://source.unsplash.com/collection/94734566/1920x1080
+# Why concurrency is important?
 
----
+<br>
 
-# Why?
+<div v-click>
 
-Look around you. What do you see?
+In the real world, you see complex independently behaving pieces.
 
-Do you see a single-stepping world doing one thing at a time?
+<br>
 
-Or do you see a complex world of interacting, independently behaving pieces?
+Sequential software you write _does not_ model the real world's behavior well enough.
 
-That's why. Sequential processing on its own does not model the world's behavior.
-
----
-
-# What is concurrency?
-
-Concurrency is the composition of independently executing computations.
-
-Concurrency is a way to structure software, particularly as a way to write clean code that interacts well with the real world.
-
-It is not parallelism.
-
-# TODO: bring in leaky abstractions, and the example of async
-
-# Also TODO: mention that CPU is much faster than network, memory, disk, etc..
+</div>
 
 ---
 
 # Concurrency is not parallelism
 
-.. although it enables parallelism.
+..although it may enable parallelism.
 
-You need to fry 5 eggs, sunny side up. To cook an egg you crack it onto the griddle, wait for a few minutes, then take it off.
+<img src="/eggs.png" class="absolute bottom-0 left-170 w-50 transform -rotate-10" />
 
-The sequential approach is to fry the first egg to completion, then fry the second egg to completion, and so on, until you have 5 fried eggs.
+<p v-click>
 
-The parallel approach is to hire 5 cooks, tell each of them to fry an egg, and wait until they are all finished.
+## An analogy
 
-The concurrent approach is that you cook all 5 eggs yourself the way you would actually do it. That is, you quickly crack each egg onto the pan, then take each one off when it's ready.
+You need to fry 5 eggs. To cook an egg you crack it onto the griddle, wait for a few minutes, then take it off.
+
+</p>
+
+---
+
+# Concurrency is not parallelism
+
+<br>
+
+- The <text class="font-extrabold text-transparent text-md bg-clip-text bg-gradient-to-r from-blue-400 to-red-600">sequential</text> approach is to fry the first egg to completion, then fry the second egg to completion, and so on, until you have 5 fried eggs.
+
+<br>
+
+<div v-click>
+
+- The <text class="font-extrabold text-transparent text-md bg-clip-text bg-gradient-to-r from-blue-400 to-red-600">parallel</text> approach is to hire 5 cooks, tell each of them to fry an egg, and wait until they are all finished.
+
+</div>
+
+<br>
+
+<div v-click>
+
+- The <text class="font-extrabold text-transparent text-md bg-clip-text bg-gradient-to-r from-blue-400 to-red-600">concurrent</text> approach is that you cook all 5 eggs yourself the way you would actually do it. That is, you quickly crack each egg onto the pan, then take each one off when it's ready.
+
+</div>
+<br>
+
+<div v-click>
+
+- The <text class="font-extrabold text-transparent text-md bg-clip-text bg-gradient-to-r from-blue-400 to-red-600">concurrent and parallel</text> approach is to hire multiple cooks, and tell them to cook the eggs efficiently, as you would do in reality.
+
+</div>
+
+---
+
+# Concurrency is not parallelism
+
 
 The reason you're able to save time without having to hire 5 cooks is because the number of cooks wasn't what was limiting you from going faster. It takes a couple minutes to cook an egg, but it only occupies your attention and your hands for a few seconds at the beginning and end.
+
+# TODO: bring in IO vs CPU bound with the example. Mention how waiting works in reality without too much details (not a spin-loop)
 
 The Go runtime and modern OS runtimes are similarly smart. They know that while your thread is waiting to receive a network response, the processor can look for other things to occupy it's attention.
 
 The larger picture of concurrency is concerned not primarily with the number of processors, but with resource contention in general. The execution of tasks demands resources, and we cannot use more resources than are available. Processors are one resource, but there is also memory storage, memory bandwidth, network bandwidth, file handles, and the list goes on.
+
+---
+
+# What is concurrency?
+
+Concurrency is being able to break your program into tasks and then interleave these tasks.
+
+Concurrency is a way to structure software, particularly as a way to write clean code that interacts well with the real world.
+
+It is not parallelism. Parallelism is different. (this line is unnecessary I guess)
+
+# TODO: bring in leaky abstractions and the pendulum stuff..
+
+# Also TODO: mention that CPU is much faster than network, memory, disk, etc..
+
+---
+
+# Why concurrency is hard?
+
+- simple vs double pendulum example ->
 
 ---
 
