@@ -200,7 +200,6 @@ You need to fry 5 eggs. To cook an egg you crack it onto the griddle, wait for a
 
 # Concurrency is not parallelism
 
-
 The reason you're able to save time without having to hire 5 cooks is because the number of cooks wasn't what was limiting you from going faster. It takes a couple minutes to cook an egg, but it only occupies your attention and your hands for a few seconds at the beginning and end.
 
 # TODO: bring in IO vs CPU bound with the example. Mention how waiting works in reality without too much details (not a spin-loop)
@@ -223,6 +222,8 @@ It is not parallelism. Parallelism is different. (this line is unnecessary I gue
 
 # Also TODO: mention that CPU is much faster than network, memory, disk, etc..
 
+# Preemptive vs cooperative
+
 ---
 
 # Why concurrency is hard?
@@ -240,6 +241,59 @@ Concurrent programming is less mature and "standardized" than regular, sequentia
 - **Coroutines, green threads**
 - **Actor model**
 - **Async**
+
+---
+
+# OS threads
+
+- The "original" way — lot of software are written this way
+
+- Spawn an OS thread, do the work on that thread, then synchronize
+
+- Synchronization is hard
+
+- Large\(r) performance overhead, not suitable for massive IO bound workloads <span v-click> (yea, yea, threadpools..) </span>
+
+---
+
+# Event-driven programming
+
+- The "callback" way
+
+- Very verbose, "non-linear" control flow
+
+- Data and errors are usually hard to follow
+
+---
+
+# Coroutines, green threads
+
+- TODO: This is a very hairy topic, and there're generators even... https://stackoverflow.com/a/31151932/11751294 & https://stackoverflow.com/a/553745/11751294
+  Needs a better explanation, and maybe separate the two topic a bit. An example could be good, and this may be useful:  https://dev.to/thibmaek/explain-coroutines-like-im-five-2d9
+
+
+
+- Basically functions, that can be suspended and resumed.
+
+- Supports large number of tasks
+
+- Usually they're multiplexed dynamically to OS threads
+
+- The `yield` keyword in Python, C#, Rust, etc..
+
+- To even confuse you more, Go's goroutines are green threads really.
+
+---
+
+# Actor model
+
+- Divides all computations into small units, called actors
+
+- Actors communicate via message passing
+
+- Actors can only make _local_ decisions: start new actors, read messages and decide what to do with them, send message to others
+
+- Real shared state and retry logic are usually a pain
 
 ---
 
