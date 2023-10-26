@@ -2,10 +2,12 @@
 //! [dependencies]
 //! tokio = { version = "1", features = ["macros", "rt-multi-thread", "time"] }
 //! ```
+// To run through Miri: https://play.rust-lang.org/?version=stable&mode=debug&edition=2021&gist=a3f282dfad6bfc2f96c8ca871de06569
+
 use tokio::time::{Duration};
 use std::sync::Mutex;
 
-#[tokio::main]
+#[tokio::main(flavor = "current_thread")]
 async fn main() {
     let mutex = Mutex::new(0);
 

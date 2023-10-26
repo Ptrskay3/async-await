@@ -6,3 +6,4 @@ index.html
 .remote-assets
 components.d.ts
 target/
+.elixir_ls

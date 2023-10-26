@@ -32,8 +32,10 @@ Leéh Péter
   <button @click="$slidev.nav.openInEditor()" title="Open in Editor" class="text-xl slidev-icon-btn opacity-50 !border-none !hover:text-white">
     <carbon:edit />
   </button>
-  <a href="https://github.com/slidevjs/slidev" target="_blank" alt="GitHub"
-    class="text-xl slidev-icon-btn opacity-50 !border-none !hover:text-white">
+  <a href="https://github.com/ptrskay3/async-await" target="_blank" alt="GitHub"
+    class="text-xl slidev-icon-btn opacity-50 !border-none !hover:text-white"
+    title="Source for this presentation"
+    >
     <carbon-logo-github />
   </a>
 </div>
@@ -269,9 +271,8 @@ Concurrent programming is less mature and "standardized" than regular, sequentia
 # Coroutines, green threads
 
 - TODO: This is a very hairy topic, and there're generators even... https://stackoverflow.com/a/31151932/11751294 & https://stackoverflow.com/a/553745/11751294
-  Needs a better explanation, and maybe separate the two topic a bit. An example could be good, and this may be useful:  https://dev.to/thibmaek/explain-coroutines-like-im-five-2d9
-
-
+  Needs a better explanation, and maybe separate the two topic a bit. An example could be good, and this may be useful: https://dev.to/thibmaek/explain-coroutines-like-im-five-2d9
+  Also emphasize: you explicitly call suspend/resume, not like async await.
 
 - Basically functions, that can be suspended and resumed.
 
@@ -291,9 +292,23 @@ Concurrent programming is less mature and "standardized" than regular, sequentia
 
 - Actors communicate via message passing
 
-- Actors can only make _local_ decisions: start new actors, read messages and decide what to do with them, send message to others
+- Actors can only make _local_ decisions:
+
+  - start new actors
+  - read messages and decide what to do with them
+  - send message to others
 
 - Real shared state and retry logic are usually a pain
+
+---
+
+# Async
+
+- The modern way of concurrency, it's becoming supported in increasingly more languages.
+
+- It lets you run a large number of concurrent tasks on a small number (can be even 1) of OS threads
+
+- Tries to preserve much of the look and feel of ordinary synchronous programming, through the async/await syntax.
 
 ---
 
