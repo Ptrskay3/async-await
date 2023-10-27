@@ -20,7 +20,7 @@ mdc: true
 
 <img src="/qr.png" class="absolute -bottom-1 -left-1 w-50" />
 
-Leéh Péter
+Péter Leéh
 
 <div class="pt-12">
   <span @click="$slidev.nav.next" class="px-2 py-1 rounded cursor-pointer" hover="bg-white bg-opacity-10">
@@ -92,23 +92,6 @@ h1 {
 <!--
 Here is another comment.
 -->
-
----
-
-## layout: default
-
-# Table of contents
-
-```html
-<Toc minDepth="1" maxDepth="1"></Toc>
-```
-
-<Toc maxDepth="1"></Toc>
-
----
-
-transition: slide-up
-level: 2
 
 ---
 
@@ -202,13 +185,34 @@ You need to fry 5 eggs. To cook an egg you crack it onto the griddle, wait for a
 
 # Concurrency is not parallelism
 
-The reason you're able to save time without having to hire 5 cooks is because the number of cooks wasn't what was limiting you from going faster. It takes a couple minutes to cook an egg, but it only occupies your attention and your hands for a few seconds at the beginning and end.
+<br>
+<br>
+<br>
 
-# TODO: bring in IO vs CPU bound with the example. Mention how waiting works in reality without too much details (not a spin-loop)
+<h3>
+Did I choose the task of "cooking eggs" by accident?
+</h3>
 
-The Go runtime and modern OS runtimes are similarly smart. They know that while your thread is waiting to receive a network response, the processor can look for other things to occupy it's attention.
+<br>
+<br>
 
-The larger picture of concurrency is concerned not primarily with the number of processors, but with resource contention in general. The execution of tasks demands resources, and we cannot use more resources than are available. Processors are one resource, but there is also memory storage, memory bandwidth, network bandwidth, file handles, and the list goes on.
+<h3 v-click>No.</h3>
+<br>
+<br>
+
+<h4 v-click>The number of cooks wasn't what was limiting you from going faster.</h4>
+
+---
+
+# Hiring 5 cooks for this tasks is something like..
+
+<img src="/multithread.png" class="object-none h-110 w-250" />
+
+---
+
+# IO-bound vs CPU-bound
+
+# TODO: Mention executors, but not here maybe
 
 ---
 

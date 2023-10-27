@@ -4,7 +4,7 @@ function getUser(user) {
 
 const USERS = ['A', 'B', 'C', 'D'];
 
-function runTasks(callback) {
+function join_all(callback) {
   let completedTasks = 0;
 
   function checkCompletion() {
@@ -22,6 +22,4 @@ function runTasks(callback) {
   }
 }
 
-runTasks(function () {
-  console.log('All tasks completed');
-});
+join_all(() => {});
