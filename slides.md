@@ -190,7 +190,7 @@ You need to fry 5 eggs. To cook an egg you crack it onto the griddle, wait for a
 <br>
 
 <h3>
-Did I choose the task of "cooking eggs" by accident?
+Did I choose the task of "frying eggs" by accident?
 </h3>
 
 <br>
@@ -211,6 +211,10 @@ Did I choose the task of "cooking eggs" by accident?
 ---
 
 # IO-bound vs CPU-bound
+
+<br>
+
+Some tasks require work <text class="font-bold font-italic">from us</text> to complete. These are <text class="font-extrabold text-transparent text-md bg-clip-text bg-gradient-to-r from-blue-400 to-red-600">CPU-bound</text> tasks.
 
 # TODO: Mention executors, but not here maybe
 
