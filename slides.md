@@ -204,9 +204,8 @@ Did I choose the task of "frying eggs" by accident?
 
 ---
 
-# Hiring 5 cooks for this tasks is something like..
 
-<img src="/multithread.png" class="object-none h-110 w-250" />
+<img src="/multithread.png" class="object-none h-120 w-250" />
 
 ---
 
@@ -519,7 +518,6 @@ async function getUserAvatar(user) {
   const result = await queryDB(...);
   return resize(result.imageBuffer, result.preferredSize || defaultSize)
 }
-
 ```
 
 ---
@@ -541,37 +539,88 @@ async function getUserAvatar(user) {
 
 ---
 
-<div v-after>
+# Control flow
 
-```ts {1|all}
-interface User {
-  id: number;
-  firstName: string;
-  lastName: string;
-  role: string;
-}
+<table class="tg">
+<thead>
+  <tr>
+    <th class="tg-0pky"></th>
+    <th class="tg-0pky"><span style="font-weight:bold">Wait for all outputs</span><br></th>
+    <th class="tg-0pky"><span style="font-weight:bold">Wait for first output</span><br></th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td class="tg-0pky"><span style="font-weight:bold">Continue on error</span><br></td>
+    <td class="tg-0pky">Promise.allSettled<br></td>
+    <td class="tg-0pky">Promise.any<br></td>
+  </tr>
+  <tr>
+    <td class="tg-0pky"><span style="font-weight:bold">Return early with error</span><br></td>
+    <td class="tg-0pky">Promise.all<br></td>
+    <td class="tg-0pky">Promise.race<br></td>
+  </tr>
+</tbody>
+</table>
 
-function updateUser(id: number, update: User) {
-  const user = getUser(id);
-  const newUser = { ...user, ...update };
-  saveUser(id, newUser);
-}
-```
 
-</div>
-
-<style>
-.footnotes-sep {
-  @apply mt-20 opacity-10;
-}
-.footnotes {
-  @apply text-sm opacity-75;
-}
-.footnote-backref {
-  display: none;
-}
+<style type="text/css">
+.tg  {border-collapse:collapse;border-color:#ccc;border-spacing:0;}
+.tg td{background-color:#fff;border-color:#ccc;border-style:solid;border-width:1px;color:#333;
+  font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg th{background-color:#f0f0f0;border-color:#ccc;border-style:solid;border-width:1px;color:#333;
+  font-family:Arial, sans-serif;font-size:14px;font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg .tg-0pky{border-color:inherit;text-align:left;vertical-align:top}
 </style>
 
+---
+
+# join
+
+- a.k.a. _all_, _gather_, _await_many_,  ..
+
+- Wait for multiple concurrent branches to complete, returning when **all** of them complete, or there was an error.
+
+- Short-circuit on errors.
+
+```js
+await Promise.all([promise1, promise2, ...promises])
+```
+- Either rejects completely, or returns all of the results in order.
+
+---
+
+# try_join
+
+- a.k.a. _Promise.allSettled_
+
+- Wait for multiple concurrent branches to complete, returning when **all** of them complete.
+
+- Continue on errors.<sup>1</sup>
+
+```js
+await Promise.allSettled([promise1, promise2, ...promises])
+```
+
+- Returns a single promise, describing the outcome of each branch, and it resolved when all of the input's promises resolve/reject. 
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+<sup>1</sup> <text class="opacity-40">On error, the other branches are still running, they don't get cancelled.</text>
+---
+
+# select
+
+- a.k.a. _Promise.race_, _WhenAny_, ...
+
+- Launch all branches _concurrently_, then return with the first result when it resolves.
+
+- 
 ---
 
 # Components
