@@ -583,6 +583,8 @@ async function getUserAvatar(user) {
 
 - Short-circuit on errors.
 
+# TODO: maybe an useful example would be better for all..
+
 ```js
 await Promise.all([promise1, promise2, ...promises])
 ```
@@ -618,11 +620,49 @@ await Promise.allSettled([promise1, promise2, ...promises])
 
 - a.k.a. _Promise.race_, _WhenAny_, ...
 
-- Launch all branches _concurrently_, then return with the first result when it resolves.
+- Launch all branches _concurrently_, then return with the first result when it resolves, or if there was an error.
 
-- 
+- Short-circuit on errors.
+
+```js
+await Promise.race([promise1, promise2, ...promises])
+```
+
 ---
 
+# Structured concurrency 
+
+---
+
+# Channels
+
+
+---
+
+# Streams
+
+
+---
+
+# Async Cancellation
+
+---
+
+# maybe an interesting example here?
+
+- more use cases here? 
+
+---
+
+# Gotchas
+
+- message passing with channels > shared memory (usually)
+
+---
+
+# Executors, stackful vs stackless? probably not here, but important
+
+---
 # Components
 
 <div grid="~ cols-2 gap-4">

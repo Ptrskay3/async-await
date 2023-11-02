@@ -23,7 +23,7 @@ async fn main() {
         println!("{user:?}");
     }
 
-    println!("{:?}", stream.collect::<Vec<_>>().await);
+    // println!("{:?}", stream.collect::<Vec<_>>().await);
 }
 
 async fn get_user(name: &str) -> String {
