@@ -16,7 +16,7 @@ title: Welcome to Slidev
 mdc: true
 ---
 
-# The workshop you've been *await*ing for
+# Hello, _async_ world!
 
 <img src="/qr.png" class="absolute -bottom-1 -left-1 w-50" />
 
@@ -239,7 +239,7 @@ It is not parallelism. Parallelism is different. (this line is unnecessary I gue
 
 # Why concurrency is hard?
 
-- simple vs double pendulum example ->
+<Youtube class="w-200 h-100" id="bXxCxhZCCUA"/>
 
 ---
 
@@ -676,7 +676,12 @@ await Promise.any([promise1, promise2, ...promises])
 
 # Gotchas
 
+(just sketches, needs examples and details)
+
+- Don't use async when it's not necessary, especially don't run multithreaded for a few async stuff.
+- Don't mix heavy synchronous and asynchronous code -> blocking the caller thread
 - message passing with channels > shared memory (usually)
+- shared memory deadlock - be careful with dependencies on other tasks
 
 ---
 
@@ -692,6 +697,7 @@ await Promise.any([promise1, promise2, ...promises])
 You can use Vue components directly inside your slides.
 
 We have provided a few built-in components like `<Tweet/>` and `<Youtube/>` that you can use directly. And adding your custom components is also super easy.
+
 
 ```html
 <Counter :count="10" />
