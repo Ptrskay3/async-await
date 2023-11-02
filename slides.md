@@ -354,8 +354,15 @@ fn get_user(name: &str) -> String {
 ```
 </div>
 
-<arrow v-click x1="450" y1="500" x2="450" y2="550" color="#564" width="3" arrowSize="1" />
 
+<h3 v-click>Is this code correct?</h3>
+<h3 v-click> Is this code efficient?</h3>
+
+<style>
+  h3 {
+    display: inline;
+  }
+  </style>
 ---
 
 # JavaScript?
