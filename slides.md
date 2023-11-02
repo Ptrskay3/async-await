@@ -231,6 +231,8 @@ It is not parallelism. Parallelism is different. (this line is unnecessary I gue
 
 # Also TODO: mention that CPU is much faster than network, memory, disk, etc..
 
+---
+
 # Preemptive vs cooperative
 
 ---
@@ -317,6 +319,9 @@ Concurrent programming is less mature and "standardized" than regular, sequentia
 
 - Tries to preserve much of the look and feel of ordinary synchronous programming, through the async/await syntax.
 
+---
+
+# Talk about OS vs lightweight threads - probably it's good to base this on the analogy.
 ---
 
 # Code
@@ -541,6 +546,9 @@ async function getUserAvatar(user) {
 
 # Control flow
 
+<br>
+<br>
+
 <table class="tg">
 <thead>
   <tr>
@@ -564,14 +572,7 @@ async function getUserAvatar(user) {
 </table>
 
 
-<style type="text/css">
-.tg  {border-collapse:collapse;border-color:#ccc;border-spacing:0;}
-.tg td{background-color:#fff;border-color:#ccc;border-style:solid;border-width:1px;color:#333;
-  font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;word-break:normal;}
-.tg th{background-color:#f0f0f0;border-color:#ccc;border-style:solid;border-width:1px;color:#333;
-  font-family:Arial, sans-serif;font-size:14px;font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
-.tg .tg-0pky{border-color:inherit;text-align:left;vertical-align:top}
-</style>
+
 
 ---
 
@@ -630,6 +631,18 @@ await Promise.race([promise1, promise2, ...promises])
 
 ---
 
+# try_select
+
+- a.k.a. _Promise.any_
+
+- Launch all branches _concurrently_, then return with the first result when it completes regardless of the result.
+
+```js
+await Promise.any([promise1, promise2, ...promises])
+```
+
+---
+
 # Structured concurrency 
 
 ---
@@ -663,6 +676,7 @@ await Promise.race([promise1, promise2, ...promises])
 # Executors, stackful vs stackless? probably not here, but important
 
 ---
+
 # Components
 
 <div grid="~ cols-2 gap-4">
