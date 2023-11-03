@@ -22,11 +22,6 @@ mdc: true
 
 Péter Leéh
 
-<div class="pt-12">
-  <span @click="$slidev.nav.next" class="px-2 py-1 rounded cursor-pointer" hover="bg-white bg-opacity-10">
-    Press Space for next page <carbon:arrow-right class="inline"/>
-  </span>
-</div>
 
 <div class="abs-br m-6 flex gap-2">
   <button @click="$slidev.nav.openInEditor()" title="Open in Editor" class="text-xl slidev-icon-btn opacity-50 !border-none !hover:text-white">
@@ -209,13 +204,19 @@ Did I choose the task of "frying eggs" by accident?
 
 ---
 
-# IO-bound vs CPU-bound
+# CPU-bound vs. IO-bound
 
 <br>
 
-Some tasks require work <text class="font-bold font-italic">from us</text> to complete. These are <text class="font-extrabold text-transparent text-md bg-clip-text bg-gradient-to-r from-blue-400 to-red-600">CPU-bound</text> tasks.
+### For some tasks, most of the work is required <text class="font-bold font-italic">from us</text> to complete. Meaning, if we're faster, the task should be faster to finish. These are <text class="font-extrabold text-transparent text-md bg-clip-text bg-gradient-to-r from-blue-400 to-red-600">CPU-bound</text> tasks.
 
-# TODO: Mention executors, but not here maybe
+<br>
+<br>
+
+### On the other hand, for some tasks, we're not in control how fast they're going to complete — it depends on <text class="font-bold font-italic">external factors</text>. These are called <text class="font-extrabold text-transparent text-md bg-clip-text bg-gradient-to-r from-blue-400 to-red-600">IO-bound</text> tasks.
+
+<br>
+<br>
 
 ---
 
@@ -225,15 +226,13 @@ Concurrency is being able to break your program into tasks and then interleave t
 
 Concurrency is a way to structure software, particularly as a way to write clean code that interacts well with the real world.
 
-It is not parallelism. Parallelism is different. (this line is unnecessary I guess)
-
 # TODO: bring in leaky abstractions and the pendulum stuff..
 
 # Also TODO: mention that CPU is much faster than network, memory, disk, etc..
 
 ---
 
-# Preemptive vs cooperative
+# Preemptive vs cooperative - maybe a later slide
 
 ---
 
