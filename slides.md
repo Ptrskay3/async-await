@@ -262,7 +262,52 @@ Concurrent programming is less mature and "standardized" than regular, sequentia
 
 - Synchronization is hard
 
+- In some languages it's hard/annoying to use.
+
 - Large\(r) performance overhead, not suitable for massive IO bound workloads <span v-click> (yea, yea, threadpools..) </span>
+
+---
+
+# OS threads
+
+<br>
+
+```rust {all|1|4-9|11-14|all}
+fn get_user(name: &str) -> String { /* ... */ }
+
+fn main() {
+    let mut handles = vec![];
+
+    for name in &["A", "B", "C", "D"] {
+        let handle = std::thread::spawn(move || get_user(name));
+        handles.push(handle);
+    }
+
+    for handle in handles {
+        let result = handle.join().unwrap();
+        println!("{result}");
+    }
+}
+```
+
+---
+
+# OS threads
+
+<br>
+
+
+```rust {all|4-8|all}
+fn get_user(name: &str) -> String { /* ... */ }
+
+fn main() {
+    std::thread::scope(|scope| {
+        for name in &["A", "B", "C", "D"] {
+            scope.spawn(move || println!("{}", get_user(name)));
+        }
+    });
+}
+```
 
 ---
 
@@ -273,6 +318,38 @@ Concurrent programming is less mature and "standardized" than regular, sequentia
 - Very verbose, "non-linear" control flow
 
 - Data and errors are usually hard to follow
+
+- Works well for a certain problems (UI)
+
+---
+
+# Event-driven programming
+
+```js {all|3|4-5,15|7-9|11-13|all}
+const http = require('http');
+
+for (const user of ['A', 'B', 'C', 'D']) {
+  http
+    .get(`http://localhost:3001/${user}`, (res) => {
+      let data = [];
+      res.on('data', (chunk) => {
+        data.push(chunk);
+      });
+
+      res.on('end', () => {
+        console.log(Buffer.concat(data).toString());
+      });
+    })
+    .on('error', (err) => {
+      console.log('Error: ', err.message);
+    });
+}
+```
+<br>
+
+<div class="flex flex-col h-screen items-center">
+<text class="text-xl" v-click>🫠</text>
+</div>
 
 ---
 
