@@ -348,7 +348,7 @@ for (const user of ['A', 'B', 'C', 'D']) {
 <br>
 
 <div class="flex flex-col h-screen items-center">
-<text class="text-xl" v-click>🫠</text>
+  <text class="text-xl" v-click>🫠</text>
 </div>
 
 ---
@@ -363,7 +363,7 @@ for (const user of ['A', 'B', 'C', 'D']) {
 
 - Supports large number of tasks
 
-- Usually they're multiplexed dynamically to OS threads
+- Usually they're multiplexed dynamically to OS threads - not really true for everything
 
 - The `yield` keyword in Python, C#, Rust, etc..
 
