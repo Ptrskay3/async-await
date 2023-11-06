@@ -7,3 +7,4 @@ index.html
 components.d.ts
 target/
 .elixir_ls
+*.beam

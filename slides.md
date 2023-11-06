@@ -5,14 +5,12 @@ class: text-center
 highlighter: shiki
 lineNumbers: false
 info: |
-  ## Slidev Starter Template
-  Presentation slides for developers.
-
-  Learn more at [Sli.dev](https://sli.dev)
+  ## Hello, async world!
+  Presentation slides about concurrency.
 drawings:
   persist: true
 transition: fade
-title: Welcome to Slidev
+title: Hello, async world!
 mdc: true
 ---
 
@@ -115,7 +113,7 @@ Hover on the bottom-left corner to see the navigation's controls panel, [learn m
 
 ---
 
-# Why concurrency is important?
+# Why concurrency is important? - place this after we've concluded that concurrency is usually what accurately represents the real world
 
 <br>
 
@@ -244,7 +242,9 @@ Concurrency is a way to structure software, particularly as a way to write clean
 
 # Concurrency
 
-Concurrent programming is less mature and "standardized" than regular, sequential programming. As a result, we express concurrency differently depending on which concurrent programming model the language is supporting. A brief overview of the most popular concurrency models can help you understand how asynchronous programming fits within the broader field of concurrent programming:
+Concurrent programming is less mature and "standardized" than regular, sequential programming. As a result, we express concurrency differently depending on which concurrent programming model the language is supporting. A brief overview of the most popular concurrency models:
+
+<br />
 
 - **OS threads**
 - **Event-driven programming**
@@ -260,12 +260,11 @@ Concurrent programming is less mature and "standardized" than regular, sequentia
 
 - Spawn an OS thread, do the work on that thread, then synchronize
 
-- Synchronization is hard
-
-- In some languages it's hard/annoying to use.
-
-- Large\(r) performance overhead, not suitable for massive IO bound workloads <span v-click> (yea, yea, threadpools..) </span>
-
+- Not suitable for massive IO bound workloads
+  - Context switching is still expensive
+  - Larger memory overhead
+  - In some languages it's hard/annoying to use.
+  - Synchronization is hard
 ---
 
 # OS threads
@@ -290,6 +289,8 @@ fn main() {
 }
 ```
 
+<Logo src="/logos/Rust-logo.png" class="w-10 dark:bg-neutral-400 rounded-3xl" />
+
 ---
 
 # OS threads
@@ -308,6 +309,8 @@ fn main() {
     });
 }
 ```
+
+<Logo src="/logos/Rust-logo.png" class="w-10 dark:bg-neutral-400 rounded-3xl" />
 
 ---
 
@@ -351,6 +354,9 @@ for (const user of ['A', 'B', 'C', 'D']) {
   <text class="text-xl" v-click>🫠</text>
 </div>
 
+
+<Logo src="/logos/JavaScript-logo.png" class="w-10" />
+
 ---
 
 # Coroutines, green threads
@@ -384,6 +390,34 @@ for (const user of ['A', 'B', 'C', 'D']) {
   - send message to others
 
 - Real shared state and retry logic are usually a pain
+
+---
+
+# Actor model
+
+```elixir {all|1-6|8-9|11-13|15-19|4,16|all}
+defmodule Worker do
+  def fry_egg(name, caller) do
+    {:ok, {_, _, body}} = :httpc.request("http://127.0.0.1:3001/#{name}")
+    send(caller, body)
+  end
+end
+
+caller = self()
+eggs = ["A", "B", "C", "D"]
+
+for name <- eggs do
+  spawn(Worker, :fry_egg, [name, caller])
+end
+
+Enum.each(eggs, fn _ ->
+  receive do
+    egg -> IO.inspect(egg)
+  end
+end)
+
+```
+<Logo src="/logos/Elixir-logo.png" class="w-10" />
 
 ---
 
