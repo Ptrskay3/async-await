@@ -224,9 +224,14 @@ Concurrency is being able to break your program into tasks and then interleave t
 
 Concurrency is a way to structure software, particularly as a way to write clean code that interacts well with the real world.
 
-# TODO: bring in leaky abstractions and the pendulum stuff..
+# TODO: bring in leaky abstractions
 
-# Also TODO: mention that CPU is much faster than network, memory, disk, etc..
+# TODO: mention that CPU is much faster than network, memory, disk, etc.. - that's why it's important
+
+<div class="flex flex-col h-screen items-center">
+  <img src="/concurrency_vs_parallelism.png" class="w-20 " />
+</div>
+
 
 ---
 
@@ -237,6 +242,38 @@ Concurrency is a way to structure software, particularly as a way to write clean
 # Why concurrency is hard?
 
 <Youtube class="w-200 h-100" id="bXxCxhZCCUA"/>
+
+---
+
+# ? - maybe should be at the very beginning.. or we don't even need this
+
+```python
+import requests
+
+def fry_egg(name):
+    return requests.get(f'http://localhost:3001/{name}').text
+
+for egg in ['A', 'B', 'C', 'D']:
+    print(fry_egg(egg))
+
+```
+
+<br />
+
+<div v-click>
+```bash
+╰─❯ timeit python3 sync.py
+8sec 88ms 624µs 988ns
+```
+</div>
+
+<br>
+
+### Is this code _correct?_
+
+<br>
+
+### Is this code _efficient?_
 
 ---
 
@@ -289,7 +326,7 @@ fn main() {
 }
 ```
 
-<Logo src="/logos/Rust-logo.png" class="w-10 dark:bg-neutral-400 rounded-3xl" />
+<Logo src="/logos/Rust-logo.png" class="w-10 dark:invert" />
 
 ---
 
@@ -310,7 +347,7 @@ fn main() {
 }
 ```
 
-<Logo src="/logos/Rust-logo.png" class="w-10 dark:bg-neutral-400 rounded-3xl" />
+<Logo src="/logos/Rust-logo.png" class="w-10 dark:invert" />
 
 ---
 
@@ -361,19 +398,52 @@ for (const egg of ['A', 'B', 'C', 'D']) {
 
 # Coroutines, green threads
 
-- TODO: This is a very hairy topic, and there're generators even... https://stackoverflow.com/a/31151932/11751294 & https://stackoverflow.com/a/553745/11751294
-  Needs a better explanation, and maybe separate the two topic a bit. An example could be good, and this may be useful: https://dev.to/thibmaek/explain-coroutines-like-im-five-2d9
-  Also emphasize: you explicitly call suspend/resume, not like async await.
+- <text class="font-extrabold text-transparent text-md bg-clip-text bg-gradient-to-r from-blue-400 to-red-600">Coroutine</text>: Basically functions, that can be suspended and resumed.
+  - The current state of the function is saved, then yields control back to the calling function.
+  - When it's resumed, its state will be restored to the point where the 'yield' was encountered and execution will continue.
 
-- Basically functions, that can be suspended and resumed.
+- <text class="font-extrabold text-transparent text-md bg-clip-text bg-gradient-to-r from-blue-400 to-red-600">Green thread</text>: Similar to OS threads, but much more "lightweight".
+  - Managed by the language runtime/library, not the OS.
+  - They're multiplexed dynamically to OS threads.
+
+- They are largely related, green threads are the underlying mechanism to execute coroutines.
 
 - Supports large number of tasks
 
-- Usually they're multiplexed dynamically to OS threads - not really true for everything
+- They are related to generators and the `yield` keyword in languages such as Python, C#
 
-- The `yield` keyword in Python, C#, Rust, etc..
+---
 
-- To even confuse you more, Go's goroutines are green threads really.
+# Coroutines, green threads
+
+
+```go {all|17|3|5,8-12|all}
+func main() {
+	var wg sync.WaitGroup
+	eggs := [4]string{"A", "B", "C", "D"}
+
+	for _, egg := range eggs {
+		wg.Add(1)
+		egg := egg
+		go func() {
+			fmt.Println(fryEgg(egg))
+			wg.Done()
+		}()
+	}
+
+	wg.Wait()
+}
+
+func fryEgg(name string) string { /* ... */ }
+```
+
+<div v-click>
+
+- Goroutines: stackful, concurrent, preemptively scheduled tasks
+
+</div>
+
+<Logo src="/logos/Go-logo.png" class="w-10" />
 
 ---
 
@@ -431,59 +501,40 @@ end)
 
 ---
 
+# Async
+
+```js
+async function fryEgg(user) {
+  const response = await fetch(`http://127.0.0.1:3001/${user}`);
+  const result = await response.text();
+  return result;
+}
+
+const eggs = ['A', 'B', 'C', 'D'];
+
+const response = await Promise.all(eggs.map((user) => fryEgg(user)));
+console.log(response);
+```
+
+<Logo src="/logos/JavaScript-logo.png" class="w-10" />
+
+
+---
+
 # Talk about OS vs lightweight threads - probably it's good to base this on the analogy.
 ---
 
-# Code
+# Let's talk about JavaScript!
 
-```rust {all|11-16|6-8|all}
-//! ```cargo
-//! [dependencies]
-//! reqwest = { version = "0.11", features = ["blocking"] }
-//! ```
-fn main() {
-    for egg in ["A", "B", "C", "D"] {
-        println!("{}", fry_egg(egg));
-    }
-}
-
-fn fry_egg(name: &str) -> String {
-    reqwest::blocking::get(format!("http://127.0.0.1:3001/{name}"))
-        .unwrap()
-        .text()
-        .unwrap()
-}
-```
-
-<br />
-
-<div v-click>
-```bash
-╰─❯ timeit cargo +nightly -qZscript sync.rs
-8sec 88ms 624µs 988ns
-```
-</div>
-
-
-<h3 v-click>Is this code correct?</h3>
-<h3 v-click> Is this code efficient?</h3>
-
-<style>
-  h3 {
-    display: inline;
-  }
-  </style>
----
-
-# JavaScript?
+- It's said to be _Asynchronous, single threaded_.
 
 ```js
 function fryEgg(egg) {
   return fetch(`http://127.0.0.1:3001/${egg}`).then((resp) => resp.text());
 }
 
-for (const user of ['A', 'B', 'C', 'D']) {
-  fryEgg(user).then((res) => console.log(res));
+for (const egg of ['A', 'B', 'C', 'D']) {
+  fryEgg(egg).then((res) => console.log(res));
 }
 ```
 
@@ -534,39 +585,6 @@ for (const egg of ['A', 'B', 'C', 'D']) {
 }
 ```
 
----
-
-# Code
-
-````rust
-//! ```cargo
-//! [dependencies]
-//! reqwest = { version = "0.11", features = ["blocking"] }
-//! ```
-fn main() {
-    for egg in ["A", "B", "C", "D"] {
-        println!("{}", fry_egg(egg));
-    }
-}
-
-fn fry_egg(name: &str) -> String {
-    reqwest::blocking::get(format!("http://127.0.0.1:3001/{name}"))
-        .unwrap()
-        .text()
-        .unwrap()
-}
-````
-
-<br />
-
-```bash
-╰─❯ timeit cargo +nightly -qZscript sync.rs
-8sec 88ms 624µs 988ns
-```
-
-<arrow v-click x1="450" y1="500" x2="450" y2="550" color="#564" width="3" arrowSize="1" />
-
----
 
 # Code - TODO: the following slides may be unnecessary
 
@@ -644,20 +662,32 @@ async function getUserAvatar(user) {
 
 ---
 
-```ts {all|2-5|6-7|8-11}
+```ts {all|2-5|6-7|8-11|all}
 async function getUserAvatar(user) {
   {
     const defaultSize = { width: 420, height: 69 };
-    const future = queryDB(...)
+    const promise = queryDB(...)
   }
-    // await future
+    // await promise
     yield // ~> return
   {
-    const result = future.output()
+    const result = promise.output()
     return resize(result.imageBuffer, result.preferredSize || defaultSize)
   }
 }
 ```
+
+<br>
+
+<div v-click>
+
+```ts
+const State1 = { defaultSize, promise };
+const State2 = { defaultSize, result }; 
+type StateMachine = typeof State1 | typeof State2;
+```
+
+</div>
 
 ---
 
@@ -1066,6 +1096,11 @@ class: text-center
 
 ---
 
-# Learn More
+# Source
+
+- https://stackoverflow.com/a/31151932/11751294 
+- https://stackoverflow.com/a/553745/11751294 
+- https://dev.to/thibmaek/explain-coroutines-like-im-five-2d9
+
 
 [Documentations](https://sli.dev) · [GitHub](https://github.com/slidevjs/slidev) · [Showcases](https://sli.dev/showcases.html)

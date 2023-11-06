@@ -13,11 +13,10 @@ func main() {
 
 	for _, egg := range eggs {
 		wg.Add(1)
-		egg := egg
-		go func() {
+		go func(egg string) {
 			fmt.Println(fryEgg(egg))
 			wg.Done()
-		}()
+		}(egg)
 	}
 
 	wg.Wait()
