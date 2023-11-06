@@ -113,22 +113,6 @@ Hover on the bottom-left corner to see the navigation's controls panel, [learn m
 
 ---
 
-# Why concurrency is important? - place this after we've concluded that concurrency is usually what accurately represents the real world
-
-<br>
-
-<div v-click>
-
-In the real world, you see complex independently behaving pieces.
-
-<br>
-
-Sequential software you write _does not_ model the real world's behavior well enough.
-
-</div>
-
----
-
 # Concurrency is not parallelism
 
 ..although it may enable parallelism.
@@ -209,24 +193,43 @@ Did I choose the task of "frying eggs" by accident?
 ### For some tasks, most of the work is required <text class="font-bold font-italic">from us</text> to complete. Meaning, if we're faster, the task should be faster to finish. These are <text class="font-extrabold text-transparent text-md bg-clip-text bg-gradient-to-r from-blue-400 to-red-600">CPU-bound</text> tasks.
 
 <br>
+
+<div v-click>
+
+- Math, string searching, image rendering, etc.
+
+</div>
+
 <br>
+
+<div v-click>
+
 
 ### On the other hand, for some tasks, we're not in control how fast they're going to complete — it depends on <text class="font-bold font-italic">external factors</text>. These are called <text class="font-extrabold text-transparent text-md bg-clip-text bg-gradient-to-r from-blue-400 to-red-600">IO-bound</text> tasks.
 
+</div>
+
 <br>
+
+<div v-click>
+
+
+- Dealing with network (databases, APIs) and files.
+
+</div>
+
 <br>
 
 ---
 
-# What is concurrency?
+# What is concurrency? Why is it important?
 
 Concurrency is being able to break your program into tasks and then interleave these tasks.
 
 Concurrency is a way to structure software, particularly as a way to write clean code that interacts well with the real world.
 
-# TODO: bring in leaky abstractions
+In reality, the fastest part of computers is the CPU — memory, disk, network are all much slower. Dealing with network (databases, APIs) and files is ~90% of software you usually write.
 
-# TODO: mention that CPU is much faster than network, memory, disk, etc.. - that's why it's important
 
 <div class="flex flex-col h-screen items-center">
   <img src="/concurrency_vs_parallelism.png" class="w-20 " />
@@ -269,11 +272,20 @@ for egg in ['A', 'B', 'C', 'D']:
 
 <br>
 
+<div v-click>
+
 ### Is this code _correct?_
+
+</div>
 
 <br>
 
+<div v-click>
+
+
 ### Is this code _efficient?_
+
+</div>
 
 ---
 
@@ -498,6 +510,7 @@ end)
 - It lets you run a large number of concurrent tasks on a small number (can be even 1) of OS threads
 
 - Tries to preserve much of the look and feel of ordinary synchronous programming, through the async/await syntax.
+  - ..but it's a [leaky abstraction.](https://www.joelonsoftware.com/2002/11/11/the-law-of-leaky-abstractions/)
 
 ---
 
@@ -526,7 +539,7 @@ console.log(response);
 
 # Let's talk about JavaScript!
 
-- It's said to be _Asynchronous, single threaded_.
+- JavaScript said to be _asynchronous and single threaded_.
 
 ```js
 function fryEgg(egg) {
@@ -585,6 +598,7 @@ for (const egg of ['A', 'B', 'C', 'D']) {
 }
 ```
 
+--- 
 
 # Code - TODO: the following slides may be unnecessary
 
@@ -662,6 +676,8 @@ async function getUserAvatar(user) {
 
 ---
 
+# TODO: A better example would be great..
+
 ```ts {all|2-5|6-7|8-11|all}
 async function getUserAvatar(user) {
   {
@@ -686,6 +702,8 @@ const State1 = { defaultSize, promise };
 const State2 = { defaultSize, result }; 
 type StateMachine = typeof State1 | typeof State2;
 ```
+
+- _(This is not actual working code, just to help you understand the model)_
 
 </div>
 
