@@ -22,9 +22,6 @@ Péter Leéh
 
 
 <div class="abs-br m-6 flex gap-2">
-  <button @click="$slidev.nav.openInEditor()" title="Open in Editor" class="text-xl slidev-icon-btn opacity-50 !border-none !hover:text-white">
-    <carbon:edit />
-  </button>
   <a href="https://github.com/ptrskay3/async-await" target="_blank" alt="GitHub"
     class="text-xl slidev-icon-btn opacity-50 !border-none !hover:text-white"
     title="Source for this presentation"
@@ -224,27 +221,57 @@ Did I choose the task of "frying eggs" by accident?
 
 # What is concurrency? Why is it important?
 
-Concurrency is being able to break your program into tasks and then interleave these tasks.
+- Concurrency is being able to break your program into tasks and then interleave these tasks.
 
-Concurrency is a way to structure software, particularly as a way to write clean code that interacts well with the real world.
+- Concurrency is a way to structure software, particularly as a way to write clean code that interacts well with the real world.
 
-In reality, the fastest part of computers is the CPU — memory, disk, network are all much slower. Dealing with network (databases, APIs) and files is ~90% of software you usually write.
+- In reality, the fastest part of computers is the CPU — memory, disk, network are all much slower.
+
+- Dealing with network and files is ~90% of software you usually write.
 
 
+
+---
+
+
+# Why concurrency is hard?
+
+<Youtube class="w-200 h-100" id="bXxCxhZCCUA"/>
+
+---
+
+# Cooperative and preemptive scheduling
+
+- <text class="font-extrabold text-transparent text-md bg-clip-text bg-gradient-to-r from-blue-400 to-red-600">Cooperative scheduling</text> when each task is willing to give up control cooperatively.
+  - If a task holds control for a long time, it blocks others from making progress
+  - We'll see later, async-await is a form of cooperative multitasking
+
+- <text class="font-extrabold text-transparent text-md bg-clip-text bg-gradient-to-r from-blue-400 to-red-600">Preemptive scheduling</text> when tasks are being "preemptively" stopped without the task being aware of it
+  - No explicit way to pause/resume.
+  - OS[^1] threads, Goroutines (Go), BEAM VM (Elixir) use this type of scheduling
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+[^1]: Windows and Mac used to use cooperative scheduling ~15 year ago.
+
+---
+
+# What is scheduling anyway?
 <div class="flex flex-col h-screen items-center">
-  <img src="/concurrency_vs_parallelism.png" class="w-20 " />
+  <img src="/concurrency_vs_parallelism.png" class="w-120 " />
 </div>
 
 
 ---
 
-# Preemptive vs cooperative - maybe a later slide
-
----
-
-# Why concurrency is hard?
-
-<Youtube class="w-200 h-100" id="bXxCxhZCCUA"/>
+# Executors ? maybe here would be good..
 
 ---
 
