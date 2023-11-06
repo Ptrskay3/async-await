@@ -197,6 +197,12 @@ Did I choose the task of "frying eggs" by accident?
 
 </div>
 
+<div v-click>
+
+- Parallelism (usually) helps with __CPU-bound__ tasks.
+
+</div>
+
 <br>
 
 <div v-click>
@@ -210,8 +216,13 @@ Did I choose the task of "frying eggs" by accident?
 
 <div v-click>
 
-
 - Dealing with network (databases, APIs) and files.
+
+</div>
+
+<div v-click>
+
+- Concurrency helps with __IO-bound__ tasks.
 
 </div>
 
@@ -244,7 +255,7 @@ Did I choose the task of "frying eggs" by accident?
 
 - <text class="font-extrabold text-transparent text-md bg-clip-text bg-gradient-to-r from-blue-400 to-red-600">Cooperative scheduling</text> when each task is willing to give up control cooperatively.
   - If a task holds control for a long time, it blocks others from making progress
-  - We'll see later, async-await is a form of cooperative multitasking
+  - We'll see later, async-await is a form of cooperative multitasking (Python, JavaScript, C#, ...)
 
 - <text class="font-extrabold text-transparent text-md bg-clip-text bg-gradient-to-r from-blue-400 to-red-600">Preemptive scheduling</text> when tasks are being "preemptively" stopped without the task being aware of it
   - No explicit way to pause/resume.
@@ -265,8 +276,9 @@ Did I choose the task of "frying eggs" by accident?
 
 # What is scheduling anyway?
 <div class="flex flex-col h-screen items-center">
-  <img src="/concurrency_vs_parallelism.png" class="w-120 " />
+  <img src="/concurrency_vs_parallelism.png" class="w-90" />
 </div>
+
 
 
 ---
@@ -490,7 +502,7 @@ func fryEgg(name string) string { /* ... */ }
 
 - Divides all computations into small units, called actors
 
-- Actors communicate via message passing
+- Actors communicate via message passing, no global variables
 
 - Actors can only make _local_ decisions:
 
@@ -732,6 +744,8 @@ type StateMachine = typeof State1 | typeof State2;
 
 - _(This is not actual working code, just to help you understand the model)_
 
+- A recent `curl` [CVE](https://daniel.haxx.se/blog/2023/10/11/how-i-made-a-heap-overflow-in-curl/) was ultimately caused by a failure to recognize state that needed to be saved during a state transition. This kind of logic error is easy to make when implementing a state machine by hand.
+
 </div>
 
 ---
@@ -762,8 +776,6 @@ type StateMachine = typeof State1 | typeof State2;
   </tr>
 </tbody>
 </table>
-
-
 
 
 ---
@@ -870,9 +882,6 @@ await Promise.any([promise1, promise2, ...promises])
 
 ---
 
-# Executors, stackful vs stackless? probably not here, but important
-
----
 
 # Components
 
