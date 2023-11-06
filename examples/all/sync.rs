@@ -5,12 +5,12 @@
 //! ```
 
 fn main() {
-    for user in ["A", "B", "C", "D"] {
-        println!("{}", get_user(user));
+    for egg in ["A", "B", "C", "D"] {
+        println!("{}", fry_egg(egg));
     }
 }
 
-fn get_user(name: &str) -> String {
+fn fry_egg(name: &str) -> String {
     reqwest::blocking::get(format!("http://127.0.0.1:3001/{name}"))
         .unwrap()
         .text()

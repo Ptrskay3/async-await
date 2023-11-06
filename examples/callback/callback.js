@@ -1,8 +1,8 @@
 const http = require('http');
 
-for (const user of ['A', 'B', 'C', 'D']) {
+for (const egg of ['A', 'B', 'C', 'D']) {
   http
-    .get(`http://localhost:3001/${user}`, (res) => {
+    .get(`http://localhost:3001/${egg}`, (res) => {
       let data = [];
       res.on('data', (chunk) => {
         data.push(chunk);

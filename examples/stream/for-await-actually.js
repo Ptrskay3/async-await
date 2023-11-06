@@ -1,18 +1,18 @@
-async function getUser(name) {
-  const response = await fetch(`http://127.0.0.1:3001/${name}`);
+async function fryEgg(egg) {
+  const response = await fetch(`http://127.0.0.1:3001/${egg}`);
   const result = await response.text();
   return result;
 }
 
-const users = ['A', 'B', 'C', 'D'];
-const promises = users.map((name) => getUser(name));
+const eggs = ['A', 'B', 'C', 'D'];
+const promises = eggs.map((egg) => fryEgg(egg));
 
-function* user_generator() {
-  for (const user of users) {
-    yield getUser(user);
+function* egg_generator() {
+  for (const egg of eggs) {
+    yield fryEgg(egg);
   }
 }
 
-for await (const user of user_generator()) {
-  console.log(user);
+for await (const egg of egg_generator()) {
+  console.log(egg);
 }

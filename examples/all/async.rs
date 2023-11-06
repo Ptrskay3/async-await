@@ -10,13 +10,13 @@ use futures::future::join_all;
 #[tokio::main(flavor = "current_thread")]
 async fn main() {
     let tasks = ["A", "B", "C", "D"].into_iter().map(|name| async {
-        get_user(name).await
+        fry_egg(name).await
     });
     let users = join_all(tasks).await;
     println!("{users:?}");
 }
 
-async fn get_user(name: &str) -> String {
+async fn fry_egg(name: &str) -> String {
     reqwest::get(format!("http://127.0.0.1:3001/{name}"))
         .await
         .unwrap()

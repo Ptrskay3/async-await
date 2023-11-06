@@ -6,12 +6,12 @@
 fn main() {
     std::thread::scope(|scope| {
         for name in &["A", "B", "C", "D"] {
-            scope.spawn(move || println!("{}", get_user(name)));
+            scope.spawn(move || println!("{}", fry_egg(name)));
         }
     });
 }
 
-fn get_user(name: &str) -> String {
+fn fry_egg(name: &str) -> String {
     reqwest::blocking::get(format!("http://127.0.0.1:3001/{name}"))
         .unwrap()
         .text()

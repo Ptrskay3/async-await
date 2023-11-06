@@ -1,9 +1,9 @@
-async function getUser(user) {
-  const response = await fetch(`http://127.0.0.1:3001/${user}`);
+async function fryEgg(egg) {
+  const response = await fetch(`http://127.0.0.1:3001/${egg}`);
   const result = await response.text();
   return result;
 }
 
-for (const user of ['A', 'B', 'C', 'D']) {
-  console.log(await getUser(user));
+for (const egg of ['A', 'B', 'C', 'D']) {
+  console.log(await fryEgg(egg));
 }

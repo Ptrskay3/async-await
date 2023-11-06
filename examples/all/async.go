@@ -9,13 +9,13 @@ import (
 
 func main() {
 	var wg sync.WaitGroup
-	users := [4]string{"A", "B", "C", "D"}
+	eggs := [4]string{"A", "B", "C", "D"}
 
-	for _, user := range users {
+	for _, egg := range eggs {
 		wg.Add(1)
-		user := user
+		egg := egg
 		go func() {
-			fmt.Println(getUser(user))
+			fmt.Println(fryEgg(egg))
 			wg.Done()
 		}()
 	}
@@ -23,15 +23,15 @@ func main() {
 	wg.Wait()
 }
 
-func getUser(name string) string {
+func fryEgg(name string) string {
 	resp, err := http.Get("http://127.0.0.1:3001/" + name)
 	if err != nil {
-		panic("oh fk")
+		panic(err)
 	}
 	defer resp.Body.Close()
 	body, err := io.ReadAll(resp.Body)
 	if err != nil {
-		panic("oh fk")
+		panic(err)
 	}
 	return string(body)
 }

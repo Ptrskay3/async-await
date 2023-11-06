@@ -272,13 +272,13 @@ Concurrent programming is less mature and "standardized" than regular, sequentia
 <br>
 
 ```rust {all|1|4-9|11-14|all}
-fn get_user(name: &str) -> String { /* ... */ }
+fn fry_egg(name: &str) -> String { /* ... */ }
 
 fn main() {
     let mut handles = vec![];
 
     for name in &["A", "B", "C", "D"] {
-        let handle = std::thread::spawn(move || get_user(name));
+        let handle = std::thread::spawn(move || fry_egg(name));
         handles.push(handle);
     }
 
@@ -299,12 +299,12 @@ fn main() {
 
 
 ```rust {all|4-8|all}
-fn get_user(name: &str) -> String { /* ... */ }
+fn fry_egg(name: &str) -> String { /* ... */ }
 
 fn main() {
     std::thread::scope(|scope| {
         for name in &["A", "B", "C", "D"] {
-            scope.spawn(move || println!("{}", get_user(name)));
+            scope.spawn(move || println!("{}", fry_egg(name)));
         }
     });
 }
@@ -443,11 +443,11 @@ end)
 //! ```
 fn main() {
     for user in ["A", "B", "C", "D"] {
-        println!("{}", get_user(user));
+        println!("{}", fry_egg(user));
     }
 }
 
-fn get_user(name: &str) -> String {
+fn fry_egg(name: &str) -> String {
     reqwest::blocking::get(format!("http://127.0.0.1:3001/{name}"))
         .unwrap()
         .text()
@@ -545,11 +545,11 @@ for (const user of ['A', 'B', 'C', 'D']) {
 //! ```
 fn main() {
     for user in ["A", "B", "C", "D"] {
-        println!("{}", get_user(user));
+        println!("{}", fry_egg(user));
     }
 }
 
-fn get_user(name: &str) -> String {
+fn fry_egg(name: &str) -> String {
     reqwest::blocking::get(format!("http://127.0.0.1:3001/{name}"))
         .unwrap()
         .text()

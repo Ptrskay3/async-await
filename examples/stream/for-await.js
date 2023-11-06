@@ -1,12 +1,12 @@
-async function getUser(name) {
+async function fryEgg(name) {
   const response = await fetch(`http://127.0.0.1:3001/${name}`);
   const result = await response.text();
   return result;
 }
 
-const users = ['A', 'B', 'C', 'D'];
-const promises = users.map((name) => getUser(name));
+const eggs = ['A', 'B', 'C', 'D'];
+const promises = eggs.map((name) => fryEgg(name));
 
-for await (const user of promises) {
-  console.log(user);
+for await (const egg of promises) {
+  console.log(egg);
 }

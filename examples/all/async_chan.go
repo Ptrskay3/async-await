@@ -10,13 +10,13 @@ import (
 func main() {
 	var wg sync.WaitGroup
 	messages := make(chan string)
-	users := [4]string{"A", "B", "C", "D"}
+	eggs := [4]string{"A", "B", "C", "D"}
 
-	for _, user := range users {
+	for _, egg := range eggs {
 		wg.Add(1)
-		u := user
+		egg := egg
 		go func() {
-			messages <- getUser(u)
+			messages <- fryEgg(egg)
 			wg.Done()
 		}()
 	}
@@ -32,7 +32,7 @@ func main() {
 
 }
 
-func getUser(name string) string {
+func fryEgg(name string) string {
 	resp, err := http.Get("http://127.0.0.1:3001/" + name)
 	if err != nil {
 		panic("oh fk")

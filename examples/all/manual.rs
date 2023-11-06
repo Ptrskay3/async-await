@@ -7,7 +7,7 @@ fn main() {
     let mut handles = vec![];
 
     for name in &["A", "B", "C", "D"] {
-        let handle = std::thread::spawn(move || get_user(name));
+        let handle = std::thread::spawn(move || fry_egg(name));
         handles.push(handle);
     }
 
@@ -17,7 +17,7 @@ fn main() {
     }
 }
 
-fn get_user(name: &str) -> String {
+fn fry_egg(name: &str) -> String {
     reqwest::blocking::get(format!("http://127.0.0.1:3001/{name}"))
         .unwrap()
         .text()

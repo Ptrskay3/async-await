@@ -4,14 +4,14 @@
 //! ```
 // To run through Miri: https://play.rust-lang.org/?version=stable&mode=debug&edition=2021&gist=a3f282dfad6bfc2f96c8ca871de06569
 
-use tokio::time::{Duration};
+use tokio::{join, time::{Duration}};
 use std::sync::Mutex;
 
 #[tokio::main(flavor = "current_thread")]
 async fn main() {
     let mutex = Mutex::new(0);
 
-    tokio::join!(work(&mutex), work(&mutex));
+    join!(work(&mutex), work(&mutex));
 
     println!("{}", *mutex.lock().unwrap());
 }
