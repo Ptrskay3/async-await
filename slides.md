@@ -14,12 +14,11 @@ title: Hello, async world!
 mdc: true
 ---
 
-# Hello, _async_ world!
+# Hello, _async_ world! (Concurrency from the group up!)
 
 <img src="/qr.png" class="absolute -bottom-1 -left-1 w-50" />
 
 Péter Leéh
-
 
 <div class="abs-br m-6 flex gap-2">
   <a href="https://github.com/ptrskay3/async-await" target="_blank" alt="GitHub"
@@ -120,7 +119,7 @@ Hover on the bottom-left corner to see the navigation's controls panel, [learn m
 
 ## An analogy
 
-You need to fry 5 eggs. To cook an egg you crack it onto the griddle, wait for a few minutes, then take it off.
+You need to fry 4 eggs. To cook an egg you crack it onto the griddle, wait for a few minutes, then take it off.
 
 </p>
 
@@ -130,13 +129,13 @@ You need to fry 5 eggs. To cook an egg you crack it onto the griddle, wait for a
 
 <br>
 
-- The <text class="font-extrabold text-transparent text-md bg-clip-text bg-gradient-to-r from-blue-400 to-red-600">sequential</text> approach is to fry the first egg to completion, then fry the second egg to completion, and so on, until you have 5 fried eggs.
+- The <text class="font-extrabold text-transparent text-md bg-clip-text bg-gradient-to-r from-blue-400 to-red-600">sequential</text> approach is to fry the first egg to completion, then fry the second egg to completion, and so on, until you have 4 fried eggs.
 
 <br>
 
 <div v-click>
 
-- The <text class="font-extrabold text-transparent text-md bg-clip-text bg-gradient-to-r from-blue-400 to-red-600">parallel</text> approach is to hire 5 cooks, tell each of them to fry an egg, and wait until they are all finished.
+- The <text class="font-extrabold text-transparent text-md bg-clip-text bg-gradient-to-r from-blue-400 to-red-600">parallel</text> approach is to hire 4 cooks, tell each of them to fry an egg, and wait until they are all finished.
 
 </div>
 
@@ -144,7 +143,7 @@ You need to fry 5 eggs. To cook an egg you crack it onto the griddle, wait for a
 
 <div v-click>
 
-- The <text class="font-extrabold text-transparent text-md bg-clip-text bg-gradient-to-r from-blue-400 to-red-600">concurrent</text> approach is that you cook all 5 eggs yourself the way you would actually do it. That is, you quickly crack each egg onto the pan, then take each one off when it's ready.
+- The <text class="font-extrabold text-transparent text-md bg-clip-text bg-gradient-to-r from-blue-400 to-red-600">concurrent</text> approach is that you cook all 4 eggs yourself the way you would actually do it. That is, you quickly crack each egg onto the pan, then take each one off when it's ready.
 
 </div>
 <br>
@@ -188,6 +187,7 @@ Did I choose the task of "frying eggs" by accident?
 <br>
 
 ### For some tasks, most of the work is required <text class="font-bold font-italic">from us</text> to complete. Meaning, if we're faster, the task should be faster to finish. These are <text class="font-extrabold text-transparent text-md bg-clip-text bg-gradient-to-r from-blue-400 to-red-600">CPU-bound</text> tasks.
+
 
 <br>
 
@@ -234,7 +234,9 @@ Did I choose the task of "frying eggs" by accident?
 
 - Concurrency is being able to break your program into tasks and then interleave these tasks.
 
-- Concurrency is a way to structure software, particularly as a way to write clean code that interacts well with the real world.
+- Work units are paused and resumed sequentially
+
+- Fast switching between them gives the illusion of "parallel"
 
 - In reality, the fastest part of computers is the CPU — memory, disk, network are all much slower.
 
@@ -844,6 +846,9 @@ await Promise.race([promise1, promise2, ...promises])
 ```js
 await Promise.any([promise1, promise2, ...promises])
 ```
+
+---
+# Maybe talk about schedulers (cooperative vs preempt.), executors here?, stackful vs stackless
 
 ---
 

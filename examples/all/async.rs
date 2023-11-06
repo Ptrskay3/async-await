@@ -9,9 +9,7 @@ use futures::future::join_all;
 
 #[tokio::main(flavor = "current_thread")]
 async fn main() {
-    let tasks = ["A", "B", "C", "D"].into_iter().map(|name| async {
-        fry_egg(name).await
-    });
+    let tasks = ["A", "B", "C", "D"].into_iter().map(|name| fry_egg(name));
     let users = join_all(tasks).await;
     println!("{users:?}");
 }
