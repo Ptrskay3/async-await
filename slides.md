@@ -331,9 +331,9 @@ fn main() {
 ```js {all|3|4-5,15|7-9|11-13|all}
 const http = require('http');
 
-for (const user of ['A', 'B', 'C', 'D']) {
+for (const egg of ['A', 'B', 'C', 'D']) {
   http
-    .get(`http://localhost:3001/${user}`, (res) => {
+    .get(`http://localhost:3001/${egg}`, (res) => {
       let data = [];
       res.on('data', (chunk) => {
         data.push(chunk);
@@ -442,8 +442,8 @@ end)
 //! reqwest = { version = "0.11", features = ["blocking"] }
 //! ```
 fn main() {
-    for user in ["A", "B", "C", "D"] {
-        println!("{}", fry_egg(user));
+    for egg in ["A", "B", "C", "D"] {
+        println!("{}", fry_egg(egg));
     }
 }
 
@@ -478,12 +478,12 @@ fn fry_egg(name: &str) -> String {
 # JavaScript?
 
 ```js
-function getUser(user) {
-  return fetch(`http://127.0.0.1:3001/${user}`).then((resp) => resp.text());
+function fryEgg(egg) {
+  return fetch(`http://127.0.0.1:3001/${egg}`).then((resp) => resp.text());
 }
 
 for (const user of ['A', 'B', 'C', 'D']) {
-  getUser(user).then((res) => console.log(res));
+  fryEgg(user).then((res) => console.log(res));
 }
 ```
 
@@ -492,12 +492,12 @@ for (const user of ['A', 'B', 'C', 'D']) {
 # JavaScript?
 
 ```js
-function getUser(user) {
-  return fetch(`http://127.0.0.1:3001/${user}`).then((resp) => resp.text());
+function fryEgg(egg) {
+  return fetch(`http://127.0.0.1:3001/${egg}`).then((resp) => resp.text());
 }
 
-for (const user of ['A', 'B', 'C', 'D']) {
-  getUser(user).then((res) => console.log(res));
+for (const egg of ['A', 'B', 'C', 'D']) {
+  fryEgg(egg).then((res) => console.log(res));
 }
 ```
 
@@ -523,14 +523,14 @@ This is clearly running concurrently.
 # JavaScript?
 
 ```js {all|1-5|7-9|all}
-async function getUser(name) {
+async function fryEgg(name) {
   const response = await fetch(`http://127.0.0.1:3001/${name}`);
   const result = await response.text();
   return result;
 }
 
-for (const user of ['A', 'B', 'C', 'D']) {
-  console.log(await getUser(user));
+for (const egg of ['A', 'B', 'C', 'D']) {
+  console.log(await fryEgg(egg));
 }
 ```
 
@@ -544,8 +544,8 @@ for (const user of ['A', 'B', 'C', 'D']) {
 //! reqwest = { version = "0.11", features = ["blocking"] }
 //! ```
 fn main() {
-    for user in ["A", "B", "C", "D"] {
-        println!("{}", fry_egg(user));
+    for egg in ["A", "B", "C", "D"] {
+        println!("{}", fry_egg(egg));
     }
 }
 
@@ -568,7 +568,7 @@ fn fry_egg(name: &str) -> String {
 
 ---
 
-# Code
+# Code - TODO: the following slides may be unnecessary
 
 ```js {all|1|3|all} {maxHeight:'100px'}
 function getUserAvatar(user) { ... }
