@@ -246,7 +246,7 @@ Did I choose the task of "frying eggs" by accident?
 ---
 
 
-# Why concurrency is hard?
+# Concurrency is hard
 
 <Youtube class="w-200 h-100" id="bXxCxhZCCUA"/>
 
@@ -254,9 +254,16 @@ Did I choose the task of "frying eggs" by accident?
 
 # Cooperative and preemptive scheduling
 
+<br>
+<br>
+
+
 - <text class="font-extrabold text-transparent text-md bg-clip-text bg-gradient-to-r from-blue-400 to-red-600">Cooperative scheduling</text> when each task is willing to give up control cooperatively.
   - If a task holds control for a long time, it blocks others from making progress
   - We'll see later, async-await is a form of cooperative multitasking (Python, JavaScript, C#, ...)
+
+<br>
+<br>
 
 - <text class="font-extrabold text-transparent text-md bg-clip-text bg-gradient-to-r from-blue-400 to-red-600">Preemptive scheduling</text> when tasks are being "preemptively" stopped without the task being aware of it
   - No explicit way to pause/resume.
@@ -275,20 +282,19 @@ Did I choose the task of "frying eggs" by accident?
 
 ---
 
-# What is scheduling anyway?
+# Schedulers
+
 <div class="flex flex-col h-screen items-center">
-  <img src="/schedulers_.png" class="w-90" />
+  <img src="/schedulers_.png" class="w-90 rounded-lg" />
 </div>
 
-
-
----
-
-# Executors ? maybe here would be good..
+- Schedulers control what task to run on what worker, and when.
 
 ---
 
-# ? - maybe should be at the very beginning.. or we don't even need this
+# Question
+
+<br>
 
 ```python
 import requests
@@ -298,7 +304,6 @@ def fry_egg(name):
 
 for egg in ['A', 'B', 'C', 'D']:
     print(fry_egg(egg))
-
 ```
 
 <br />
@@ -339,7 +344,7 @@ Concurrent programming is less mature and "standardized" than regular, sequentia
 - **Event-driven programming**
 - **Coroutines, green threads**
 - **Actor model**
-- **Async**
+- **Async-await**
 
 ---
 
@@ -349,11 +354,16 @@ Concurrent programming is less mature and "standardized" than regular, sequentia
 
 - Spawn an OS thread, do the work on that thread, then synchronize
 
+- They __may__ run in parallel, not just concurrently.
+
 - Not suitable for massive IO bound workloads
   - Context switching is still expensive
   - Larger memory overhead
   - In some languages it's hard/annoying to use.
   - Synchronization is hard
+
+- C, C++, Rust
+
 ---
 
 # OS threads
@@ -413,6 +423,8 @@ fn main() {
 
 - Works well for a certain problems (UI)
 
+- Any possible in (sort of) any language
+
 ---
 
 # Event-driven programming
@@ -462,7 +474,9 @@ for (const egg of ['A', 'B', 'C', 'D']) {
 
 - Supports large number of tasks
 
-- They are related to generators and the `yield` keyword in languages such as Python, C#
+- They are related to generators and the `yield` keyword in some languages
+
+- Python, Go, Kotlin
 
 ---
 
@@ -503,7 +517,11 @@ func fryEgg(name string) string { /* ... */ }
 
 - Divides all computations into small units, called actors
 
-- Actors communicate via message passing, no global variables
+- Actors communicate via message passing
+
+- No shared memory at all, no global state
+
+- Isolation — one actor crashing doesn't affect the other
 
 - Actors can only make _local_ decisions:
 
@@ -512,6 +530,8 @@ func fryEgg(name string) string { /* ... */ }
   - send message to others
 
 - Real shared state and retry logic are usually a pain
+
+- Erlang, Elixir mostly, most possible in a lot of languages through frameworks.
 
 ---
 
@@ -543,7 +563,7 @@ end)
 
 ---
 
-# Async
+# Async-await
 
 - The modern way of concurrency, it's becoming supported in increasingly more languages.
 
@@ -551,6 +571,8 @@ end)
 
 - Tries to preserve much of the look and feel of ordinary synchronous programming, through the async/await syntax.
   - ..but it's a [leaky abstraction.](https://www.joelonsoftware.com/2002/11/11/the-law-of-leaky-abstractions/)
+
+- JavaScript, C#, Rust, Swift
 
 ---
 
