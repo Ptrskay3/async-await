@@ -243,7 +243,6 @@ Did I choose the task of "frying eggs" by accident?
 - Dealing with network and files is ~90% of software you usually write.
 
 
-
 ---
 
 
@@ -278,7 +277,7 @@ Did I choose the task of "frying eggs" by accident?
 
 # What is scheduling anyway?
 <div class="flex flex-col h-screen items-center">
-  <img src="/concurrency_vs_parallelism.png" class="w-90" />
+  <img src="/schedulers_.png" class="w-90" />
 </div>
 
 

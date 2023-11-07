@@ -19,8 +19,8 @@ async fn main() {
     // let stream = futures::stream::iter(["A", "B", "C", "D"]).map(fry_egg).buffered(2).chunks(2);
     pin_mut!(stream);
     
-    while let Some(user) = stream.next().await {
-        println!("{user:?}");
+    while let Some(egg) = stream.next().await {
+        println!("{egg:?}");
     }
 
     // println!("{:?}", stream.collect::<Vec<_>>().await);
