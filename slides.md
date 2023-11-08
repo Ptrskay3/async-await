@@ -14,9 +14,9 @@ title: Hello, async world!
 mdc: true
 ---
 
-# Hello, _async_ world! (Concurrency from the group up!)
+# Hello, _async_ world!
 
-<img src="/qr.png" class="absolute -bottom-1 -left-1 w-50" />
+<img v-click src="/qr.png" class="absolute -bottom-1 -left-1 w-50" />
 
 Péter Leéh
 
@@ -293,6 +293,8 @@ Did I choose the task of "frying eggs" by accident?
 ---
 
 # Question
+
+- Context..
 
 <br>
 
@@ -658,70 +660,7 @@ for (const egg of ['A', 'B', 'C', 'D']) {
 
 --- 
 
-# Code - TODO: the following slides may be unnecessary
-
-```js {all|1|3|all} {maxHeight:'100px'}
-function getUserAvatar(user) { ... }
-
-const avatars = users.map(user => getUserAvatar(user));
-```
-
----
-
-# Code
-
-```js
-async function getUserAvatar(user) { ... }
-
-const avatars = users.map(async (user) => await getUserAvatar(user));
-```
-
-<arrow v-click x1="200" y1="200" x2="100" y2="120" color="#564" width="3" arrowSize="1" />
-<arrow v-click x1="400" y1="250" x2="290" y2="160" color="#564" width="3" arrowSize="1" />
-<arrow v-click x1="500" y1="250" x2="390" y2="160" color="#564" width="3" arrowSize="1" />
-
-<div v-click>
-<div>
-<br />
-<br />
-<br />
-<br />
-
-```js
-[Promise { <pending> }, Promise { <pending> }, Promise { <pending> }, Promise { <pending> }]
-```
-
-</div>
-</div>
-
----
-
-# Code
-
-```js
-async function getUserAvatar(user) { ... }
-
-const futures = users.map(user => getUserAvatar(user))
-
-await Promise.all(futures)
-```
-
----
-
-# Code
-
-```js
-async function getUserAvatar(user) { ... }
-
-const futures = users.map(user => getUserAvatar(user));
-
-const avatars = [];
-for await (const avatar of futures) {
-  avatars.push(avatar);
-}
-```
-
----
+# Async under the hood
 
 ```ts
 async function getUserAvatar(user) {
@@ -894,7 +833,7 @@ image: /structured_concurrency_2.png
 
 # Channels - too much text on this slide
 
-- A communication/synchronization model via message passing.
+- A communication/synchronization model via message passing. Can be used with OS threads, async context, coroutines.. basically everywhere.
 - They're usually very efficient, and if the design allows, they're often better than sharing memory with mutexes or similar.
 
 - __1:1__: One-to-one relationship. Just like a real-world channel, it has two ends, and they can communicate.
