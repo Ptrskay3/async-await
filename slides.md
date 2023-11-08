@@ -662,30 +662,38 @@ for (const egg of ['A', 'B', 'C', 'D']) {
 
 # Async under the hood
 
-```ts
-async function getUserAvatar(user) {
-  const defaultSize = { width: 420, height: 69 };
+Consider the following async function
 
-  const result = await queryDB(...);
-  return resize(result.imageBuffer, result.preferredSize || defaultSize)
+```ts
+async function gatherUserInfo(user) {
+  const unused = 0;
+  const userPreferences = calculateUserPreferences(user);
+  const pictures = await queryPictures(user, userPreferences);
+  
+  return { name: user.name, preferences: userPreferences, pictures };
 }
 ```
 
+<!--
+While it’s common to use async without knowing exactly what’s happening under the hood, I’m a firm believer that understanding how something actually works helps you to make even better use of it. For async/await in particular, understanding the mechanisms involved is especially helpful when you want to look below the surface, such as when you’re trying to debug things gone wrong or improve the performance of things otherwise gone right. In this post, then, we’ll deep-dive into exactly how await works at the language, compiler, and library level, so that you can make the most of these valuable features.
+ -->
+
 ---
 
-# TODO: A better example would be great..
+# Async under the hood
 
-```ts {all|2-5|6-7|8-11|all}
-async function getUserAvatar(user) {
+```ts {all|2-6|7-8|9-12|all}
+async function gatherUserInfo(user) {
   {
-    const defaultSize = { width: 420, height: 69 };
-    const promise = queryDB(...)
+    const unused = 0;
+    const userPreferences = calculateUserPreferences(user);
+    const promise = queryPictures(user, userPreferences)
   }
     // await promise
     yield // ~> return
   {
-    const result = promise.output()
-    return resize(result.imageBuffer, result.preferredSize || defaultSize)
+    const pictures = promise.output()
+    return { name: user.name, preferences: userPreferences, pictures }
   }
 }
 ```
@@ -695,16 +703,36 @@ async function getUserAvatar(user) {
 <div v-click>
 
 ```ts
-const State1 = { defaultSize, promise };
-const State2 = { defaultSize, result }; 
+const State1 = { user, userPreferences, promise };
+const State2 = { user, userPreferences, pictures }; 
 type StateMachine = typeof State1 | typeof State2;
 ```
 
-- _(This is not actual working code, just to help you understand the model)_
-
-- A recent `curl` [CVE](https://daniel.haxx.se/blog/2023/10/11/how-i-made-a-heap-overflow-in-curl/) was ultimately caused by a failure to recognize state that needed to be saved during a state transition. This kind of logic error is easy to make when implementing a state machine by hand.
+_(This is not actual working code, just to help you understand the model)_
 
 </div>
+
+<Logo src="/logos/JavaScript-logo.png" class="w-10" />
+
+---
+
+# Async under the hood
+
+- Basically _all_ languages with async support does this underneath the covers — including 
+
+  - [Python](https://tenthousandmeters.com/blog/python-behind-the-scenes-12-how-asyncawait-works-in-python/)
+
+  - [C#](https://devblogs.microsoft.com/dotnet/how-async-await-really-works/)
+
+  - [Swift](https://swiftrocks.com/how-async-await-works-internally-in-swift)
+
+  - [Rust](https://www.youtube.com/watch?v=ThjvMReOXYM)
+
+<br>
+
+- Generally you should appreciate what async-await abstracts away
+  - A recent `curl` [CVE](https://daniel.haxx.se/blog/2023/10/11/how-i-made-a-heap-overflow-in-curl/) was ultimately caused by a failure to recognize state that needed to be saved during a state transition. This kind of logic error is easy to make when implementing a state machine by hand.
+
 
 ---
 
