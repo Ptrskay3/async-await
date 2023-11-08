@@ -6,20 +6,17 @@
 use std::sync::mpsc::channel;
 
 fn main() {
-    let mut handles = vec![];
     let (sender, receiver) = channel();
 
-    for name in &["A", "B", "C", "D"] {
-        let sender = sender.clone();
-        let handle = std::thread::spawn(move || sender.send(fry_egg(name)).unwrap());
-        handles.push(handle);
-    }
+    std::thread::scope(|scope| {
+        for name in &["A", "B", "C", "D"] {
+            let sender = sender.clone();
+            scope.spawn(move || sender.send(fry_egg(name)).unwrap());
+        }
+    });
 
-    for handle in handles {
-        handle.join().unwrap();
-    }
+    // Close the channel, indicating we don't expect more messages.
     drop(sender);
-
     while let Ok(item) = receiver.recv() {
         println!("{item}");
     }
