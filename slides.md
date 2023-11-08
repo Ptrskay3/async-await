@@ -674,6 +674,8 @@ async function gatherUserInfo(user) {
 }
 ```
 
+<Logo src="/logos/JavaScript-logo.png" class="w-10" />
+
 <!--
 While it’s common to use async without knowing exactly what’s happening under the hood, I’m a firm believer that understanding how something actually works helps you to make even better use of it. For async/await in particular, understanding the mechanisms involved is especially helpful when you want to look below the surface, such as when you’re trying to debug things gone wrong or improve the performance of things otherwise gone right. In this post, then, we’ll deep-dive into exactly how await works at the language, compiler, and library level, so that you can make the most of these valuable features.
  -->
