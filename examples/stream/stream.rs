@@ -17,6 +17,7 @@ async fn main() {
     // let stream = futures::stream::iter(["A", "B", "C", "D"]).map(fry_egg).buffered(2);
     // let stream = futures::stream::iter(["A", "B", "C", "D"]).map(fry_egg).buffer_unordered(2);
     // let stream = futures::stream::iter(["A", "B", "C", "D"]).map(fry_egg).buffered(2).chunks(2);
+    // let stream = futures::stream::iter(["A", "B", "C", "D"]).filter(|&egg| async move { egg != "C" } ).map(fry_egg).buffered(2);
     pin_mut!(stream);
     
     while let Some(egg) = stream.next().await {

@@ -898,6 +898,22 @@ image: /structured_concurrency_2.png
 
 # Streams
 
+- Asynchronous equivalent of for loops, each item is yielded asynchronously
+
+<br>
+
+```js
+for await (const egg of eggs) {
+  console.log(egg);
+}
+```
+
+(JavaScript is kind of a special kid here, see `examples/stream/for-await-actually.js`)
+
+- Already a touch better than synchronous iterators - even though it takes ~8 seconds to complete, it doesn't block for the full duration
+- Can be used when asynchronous tasks have a dependency on each other (e.g. we need to know the previous result to continue)
+- Flexible, they can be buffered, unordered, chunked, etc..
+- Streams are used for infinite scrolls, requesting for paginated results
 
 ---
 

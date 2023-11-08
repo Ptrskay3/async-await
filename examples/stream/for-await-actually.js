@@ -5,14 +5,13 @@ async function fryEgg(egg) {
 }
 
 const eggs = ['A', 'B', 'C', 'D'];
-const promises = eggs.map((egg) => fryEgg(egg));
 
-function* egg_generator() {
+function* fryEggGenerator() {
   for (const egg of eggs) {
     yield fryEgg(egg);
   }
 }
 
-for await (const egg of egg_generator()) {
+for await (const egg of fryEggGenerator()) {
   console.log(egg);
 }
