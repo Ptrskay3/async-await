@@ -362,7 +362,7 @@ Concurrent programming is less mature and "standardized" than regular, sequentia
   - In some languages it's hard/annoying to use.
   - Synchronization is hard
 
-- C, C++, Rust
+- C, C++, Rust, Java, C#, ..
 
 ---
 
@@ -429,7 +429,7 @@ fn main() {
 
 # Event-driven programming
 
-```js {all|3|4-5,15|7-9|11-13|all}
+```js {all|3|4-5,15|6-9|11-13|all}
 const http = require('http');
 
 for (const egg of ['A', 'B', 'C', 'D']) {
@@ -531,14 +531,14 @@ func fryEgg(name string) string { /* ... */ }
 
 - Real shared state and retry logic are usually a pain
 
-- Erlang, Elixir mostly, most possible in a lot of languages through frameworks.
+- Erlang, Elixir mostly, but possible in a lot of languages through frameworks.
 
 ---
 
 # Actor model
 
 ```elixir {all|1-6|8-9|11-13|15-19|4,16|all}
-defmodule Worker do
+defmodule Actor do
   def fry_egg(name, caller) do
     {:ok, {_, _, body}} = :httpc.request("http://127.0.0.1:3001/#{name}")
     send(caller, body)
@@ -549,7 +549,7 @@ caller = self()
 eggs = ["A", "B", "C", "D"]
 
 for name <- eggs do
-  spawn(Worker, :fry_egg, [name, caller])
+  spawn(Actor, :fry_egg, [name, caller])
 end
 
 Enum.each(eggs, fn _ ->
@@ -576,7 +576,7 @@ end)
 
 ---
 
-# Async
+# Async-await
 
 ```js
 async function fryEgg(user) {
@@ -593,10 +593,6 @@ console.log(response);
 
 <Logo src="/logos/JavaScript-logo.png" class="w-10" />
 
-
----
-
-# Talk about OS vs lightweight threads - probably it's good to base this on the analogy.
 ---
 
 # Let's talk about JavaScript!
@@ -869,13 +865,31 @@ await Promise.any([promise1, promise2, ...promises])
 ```
 
 ---
-# Maybe talk about schedulers (cooperative vs preempt.), executors here?, stackful vs stackless
+layout: image-left
+backgroundSize: clip
+image: /structured_concurrency_1.png
+---
+# Structured concurrency
+
+- A property that improves quality and clarity of concurrent programs.
+- It doesn't matter how many concurrent things are happening, the program structure is always a tree. No cycles, no dangling nodes.
+
+---
+layout: image-left
+backgroundSize: clip
+image: /structured_concurrency_2.png
+---
+# Structured concurrency
+
+- Three properties must hold:
+  - __Cancellation propagation__: When a task is cancelled, it's guaranteed that all tasks underneath are also cancelled.
+  - __Error propagation__: When an error is created in the call-graph, it can always be propagated up to the callers, until there is a caller that handles it.
+  - __Ordering of operations__: When a function returns, you know it is done doing work.
+
+- Black box model of execution — the result code is composable.
 
 ---
 
-# Structured concurrency 
-
----
 
 # Channels
 
