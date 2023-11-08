@@ -799,7 +799,7 @@ type StateMachine = typeof State1 | typeof State2;
 
 ---
 
-# join
+# join - TODO: collapse the try_* variants, we don't need that much detail
 
 - a.k.a. _all_, _gather_, _await_many_,  ..
 
@@ -852,6 +852,8 @@ await Promise.allSettled([promise1, promise2, ...promises])
 await Promise.race([promise1, promise2, ...promises])
 ```
 
+- Timeouts, graceful shutdowns, etc..
+
 ---
 
 # try_select
@@ -890,9 +892,78 @@ image: /structured_concurrency_2.png
 
 ---
 
+# Channels - too much text on this slide
+
+- A communication/synchronization model via message passing.
+- They're usually very efficient, and if the design allows, they're often better than sharing memory with mutexes or similar.
+
+- __1:1__: One-to-one relationship. Just like a real-world channel, it has two ends, and they can communicate.
+- __1:N__: One-to-many relationship. One sender communicates with many receivers. E.g. broadcasting messages to clients
+- __N:1__: Many-to-one relationship. Many senders and one receiver communicates. E.g. Gathering results from multiple sources.
+- __N:M__: Many-to-many relationship. Many senders, many receivers. E.g. a chat, or basically any distributed system.
+
+- These are not always distinguished. An N:M channel basically can handle all the other special cases too.
+- Bounded + Backpressure, Unbounded
+
+---
 
 # Channels
 
+ In Go, channels are first-class citizens.
+
+```go {all|2|7-9|12-18|all}
+func main() {
+	channel := make(chan string)
+	eggs := [4]string{"A", "B", "C", "D"}
+
+	for _, egg := range eggs {
+		egg := egg
+		go func() {
+			channel <- fryEgg(egg)
+		}()
+	}
+
+	select {
+	  case response := <- channel:
+		fmt.Println(response)
+      case <- time.After(5 * time.Second):
+        fmt.Println("Timed out")
+        return
+	}
+}
+
+func fryEgg(name string) string { /* ... */ }
+```
+
+<Logo src="/logos/Go-logo.png" class="w-10" /> 
+
+---
+
+# Channels
+
+```rust {all|4|6-11|13-17|all}
+use std::sync::mpsc::channel;
+
+fn main() {
+    let (sender, receiver) = channel();
+
+    std::thread::scope(|scope| {
+        for name in &["A", "B", "C", "D"] {
+            let sender = sender.clone();
+            scope.spawn(move || sender.send(fry_egg(name)).unwrap());
+        }
+    });
+
+    drop(sender);
+    while let Ok(item) = receiver.recv() {
+        println!("{item}");
+    }
+}
+
+fn fry_egg(name: &str) -> String { /* ... */ }
+```
+
+<Logo src="/logos/Rust-logo.png" class="w-10 dark:invert" />
 
 ---
 
@@ -910,20 +981,14 @@ for await (const egg of eggs) {
 
 (JavaScript is kind of a special kid here, see `examples/stream/for-await-actually.js`)
 
-- Already a touch better than synchronous iterators - even though it takes ~8 seconds to complete, it doesn't block for the full duration
+- For IO-bound iterations, it's already non-blocking
 - Can be used when asynchronous tasks have a dependency on each other (e.g. we need to know the previous result to continue)
 - Flexible, they can be buffered, unordered, chunked, etc..
 - Streams are used for infinite scrolls, requesting for paginated results
 
 ---
 
-# Async Cancellation
-
----
-
-# maybe an interesting example here?
-
-- more use cases here? 
+# Async cancellation & async destructors - maybe a word or two, but ths is too advanced
 
 ---
 
