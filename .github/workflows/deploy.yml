@@ -30,7 +30,7 @@ jobs:
         run: npm install
 
       - name: Install slidev
-        run: npm i -g @slidev/cli && npm install @slidev/theme-seriph
+        run: npm i -g @slidev/cli && npm install -g @slidev/theme-seriph
 
       - name: Build
         run: slidev build --base async-await
