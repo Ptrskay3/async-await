@@ -33,13 +33,16 @@ jobs:
         run: npm i -g @slidev/cli
 
       - name: Build
-        run: slidev build --base async-await
+        run: slidev build --base /async-await/
 
       - uses: actions/configure-pages@v3
 
+      - name: debug
+        run: ls -lah
+
       - uses: actions/upload-pages-artifact@v1
         with:
-          path: async-await/dist
+          path: dist
 
       - name: Deploy
         id: deployment
