@@ -334,6 +334,9 @@ for egg in ['A', 'B', 'C', 'D']:
 
 </div>
 
+<Logo src="/logos/Python-logo.png" class="w-10" />
+
+
 ---
 
 # Concurrency
