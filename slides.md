@@ -35,6 +35,39 @@ The last comment block of each slide will be treated as slide notes. It will be 
 
 ---
 
+# General information
+<div v-click>
+
+- Not a one-man-show — ask questions as we go.
+
+</div>
+
+<br>
+
+<div v-click>
+
+- A complex topic, I'll try to keep it simple and understandable.
+
+</div>
+
+<br>
+
+<div v-click>
+
+
+```python
+print("Hello, async world!")
+```
+</div>
+
+
+
+<div v-click>
+  <Logo src="python_logo.png" class="w-10" />
+  <Arrow x1="200" y1="255" x2="915" y2="494" color="rgb(55, 125, 125)" />
+</div>
+---
+
 # Concurrency is not parallelism
 
 ..although it may enable parallelism.
@@ -220,7 +253,7 @@ image: schedulers_.png
 
 # Question
 
-- Context..
+- [localhost:3001](localhost:3001/hello)
 
 <br>
 
@@ -664,7 +697,6 @@ _(This is not actual working code, just to help you understand the model)_
 - Generally you should appreciate what async-await abstracts away
   - A recent `curl` [CVE](https://daniel.haxx.se/blog/2023/10/11/how-i-made-a-heap-overflow-in-curl/) was ultimately caused by a failure to recognize state that needed to be saved during a state transition. This kind of logic error is easy to make when implementing a state machine by hand.
 
-
 ---
 
 # Control flow
@@ -899,6 +931,7 @@ for await (const egg of eggs) {
 - Don't mix heavy synchronous and asynchronous code -> blocking the caller thread
 - message passing with channels > shared memory (usually)
 - shared memory deadlock - be careful with dependencies on other tasks
+- logging + concurrency is a very hard topic
 
 ---
 
@@ -911,20 +944,18 @@ for await (const egg of eggs) {
 - https://swiftrocks.com/how-async-await-works-internally-in-swift
 - https://stackoverflow.com/questions/74545387/golang-concurrency-vs-parallelism-vs-sequential?fbclid=IwAR1i0wWL6C9xf99BifWCLa3DZr1ysrzdiEmVyz3F7m-lWbqmdTJ4Y93hkls
 - https://nikomatsakis.github.io/ECE290-2023/?fbclid=IwAR1bPNZa_XXObfrzBlHM34ZwQaAU4SZL2Vdn76EVIlUwZ6eOHirpmEciIi0#82
-- https://devblogs.microsoft.com/dotnet/how-async-await-really-works/
 - https://gendignoux.com/blog/2021/04/01/rust-async-streams-futures-part1.html
-- https://shahbhat.medium.com/structured-concurrency-in-modern-programming-languages-part-i-e7cdb25ff172
+- https://gendignoux.com/blog/2021/04/08/rust-async-streams-futures-part2.html
 
 ---
 
-# Still going
+# ..and some more
 
 - https://tenthousandmeters.com/blog/python-behind-the-scenes-12-how-asyncawait-works-in-python/
 - https://without.boats/blog/why-async-rust/
 - https://blog.yoshuawuyts.com/async-cancellation-1/
 - https://blog.yoshuawuyts.com/futures-concurrency/
 - https://tomaka.medium.com/a-look-back-at-asynchronous-rust-d54d63934a1c#3008
-- https://blog.yoshuawuyts.com/streams-concurrency/
 - https://rust-lang.github.io/async-book/
 - https://www.youtube.com/watch?v=ThjvMReOXYM
 - https://dave.cheney.net/2014/03/19/channel-axioms
@@ -934,7 +965,7 @@ for await (const egg of eggs) {
 
 ---
 
-# And so on..
+# still going..
 
 - https://blog.yoshuawuyts.com/futures-concurrency-2/
 - https://blog.yoshuawuyts.com/tree-structured-concurrency/
@@ -943,15 +974,15 @@ for await (const egg of eggs) {
 - https://stackoverflow.com/questions/39933929/why-thead-per-multiple-connections-model-is-considered-better-than-thread-per-co
 - https://without.boats/blog/thread-per-core/
 - https://marabos.nl/atomics/
-- https://en.wikipedia.org/wiki/Fork%E2%80%93join_model
 - https://tokio.rs/blog/2019-10-scheduler
 - https://www.youtube.com/watch?v=FNcXf-4CLH0
 - https://tokio.rs/tokio/tutorial/async
 - https://www.reddit.com/r/rust/comments/16dk9ya/async_rust_is_a_bad_language/
 
+
 ---
 
-# Finally..
+# I promise there's ony one slide left
 
 - https://www.reddit.com/r/rust/comments/92th5t/why_is_futuresrs_poll_mechanism_better_than_event/
 - https://www.youtube.com/watch?v=oV9rvDllKEg
@@ -959,8 +990,17 @@ for await (const egg of eggs) {
 - https://www.youtube.com/watch?v=0HwrZp9CBD4
 - https://stackoverflow.com/questions/22621514/is-scalas-actors-similar-to-gos-coroutines
 - https://google.github.io/comprehensive-rust/async.html
+- https://blog.yoshuawuyts.com/streams-concurrency/
+- https://en.wikipedia.org/wiki/Fork%E2%80%93join_model
 - https://corrode.dev/blog/async/
 - https://bertptrs.nl/2023/04/27/how-does-async-rust-work.html
+- https://devblogs.microsoft.com/dotnet/how-async-await-really-works/
+
+---
+
+# Thanks for listening!
+
 - https://www.joelonsoftware.com/2002/11/11/the-law-of-leaky-abstractions/
 - https://jenkov.com/tutorials/java-concurrency/concurrency-vs-parallelism.html
 - https://github.com/ms2ag16/Books/blob/master/Designing%20Data-Intensive%20Applications%20-%20Martin%20Kleppmann.pdf
+- https://shahbhat.medium.com/structured-concurrency-in-modern-programming-languages-part-i-e7cdb25ff172
