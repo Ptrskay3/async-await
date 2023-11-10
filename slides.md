@@ -709,8 +709,8 @@ _(This is not actual working code, just to help you understand the model)_
 
 ```js
 async function attempt_to_get_two_sites_concurrently() {
-    let foo_page = await download_page("https://www.foo.com");
-    let bar_page = await download_page("https://www.bar.com");
+    let foo_page = await get_page("https://www.foo.com");
+    let bar_page = await get_page("https://www.bar.com");
     return [foo_page, bar_page];
 }
 ```
@@ -729,8 +729,8 @@ async function attempt_to_get_two_sites_concurrently() {
 
 ```js {none}
 async function attempt_to_get_two_sites_concurrently() {
-    let foo_page = await download_page("https://www.foo.com");
-    let bar_page = await download_page("https://www.bar.com");
+    let foo_page = await get_page("https://www.foo.com");
+    let bar_page = await get_page("https://www.bar.com");
     return [foo_page, bar_page];
 }
 ```
@@ -739,8 +739,8 @@ async function attempt_to_get_two_sites_concurrently() {
 
 ```js
 async function get_two_sites_concurrently() {
-    let foo_page = download_page("https://www.foo.com");
-    let bar_page = download_page("https://www.bar.com");
+    let foo_page = get_page("https://www.foo.com");
+    let bar_page = get_page("https://www.bar.com");
     return await Promise.all([foo_page, bar_page]);
 }
 ```
@@ -755,13 +755,13 @@ async function get_two_sites_concurrently() {
   - try_select: short-circuit on errors, cancel the remaining branches
   - select: keep going on errors, returns the first non-error result
 
-- Timeouts, graceful shutdowns, load balancing, etc..
+- Timeouts, graceful shutdowns, load balancing, running two endless processes concurrently (a webserver and a worker loop), waiting for user input, etc..
 
 ```js
-async function race_two_sites_with() {
-    let foo_page = download_page("https://www.foo.com");
-    let bar_page = download_page("https://www.bar.com");
-    return await Promise.race([foo_page, bar_page]);
+async function get_site_or_abort() {
+    let cancel_signal = cancel_signal();
+    let foo_page = get_page("https://www.foo.com");
+    return await Promise.race([foo_page, cancel_signal]);
 }
 ```
 
@@ -791,18 +791,17 @@ image: structured_concurrency_2.png
 
 ---
 
-# Channels - too much text on this slide
+# Channels
 
 - A communication/synchronization model via message passing. Can be used with OS threads, async context, coroutines.. basically everywhere.
-- They're usually very efficient, and if the design allows, they're often better than sharing memory with mutexes or similar.
-
-- __1:1__: One-to-one relationship. Just like a real-world channel, it has two ends, and they can communicate.
-- __1:N__: One-to-many relationship. One sender communicates with many receivers. E.g. broadcasting messages to clients
-- __N:1__: Many-to-one relationship. Many senders and one receiver communicates. E.g. Gathering results from multiple sources.
-- __N:M__: Many-to-many relationship. Many senders, many receivers. E.g. a chat, or basically any distributed system.
+  - __1:1__: Just like a real-world channel, it has two ends, and they can communicate.
+  - __1:N__: One sender communicates with many receivers. E.g. broadcasting messages to clients
+  - __N:1__: Many senders and one receiver communicates. E.g. Gathering results from multiple sources.
+  - __N:M__: Many senders, many receivers. E.g. a chat, or basically any distributed system.
 
 - These are not always distinguished. An N:M channel basically can handle all the other special cases too.
-- Bounded + Backpressure, Unbounded
+- Bounded + backpressure, Unbounded
+- Can be very flexible with _select_ operations.
 
 ---
 
@@ -873,6 +872,7 @@ fn fry_egg(name: &str) -> String { /* ... */ }
 <br>
 
 ```js
+// TODO: this code example is useless
 for await (const egg of eggs) {
   console.log(egg);
 }
@@ -903,278 +903,64 @@ for await (const egg of eggs) {
 ---
 
 
-# Components
-
-<div grid="~ cols-2 gap-4">
-<div>
-
-You can use Vue components directly inside your slides.
-
-We have provided a few built-in components like `<Tweet/>` and `<Youtube/>` that you can use directly. And adding your custom components is also super easy.
-
-
-```html
-<Counter :count="10" />
-```
-
-<!-- ./components/Counter.vue -->
-<Counter :count="10" m="t-4" />
-
-Check out [the guides](https://sli.dev/builtin/components.html) for more.
-
-</div>
-<div>
-
-```html
-<Tweet id="1390115482657726468" />
-```
-
-<Tweet id="1390115482657726468" scale="0.65" />
-
-</div>
-</div>
-
-<!--
-Presenter note with **bold**, *italic*, and ~~striked~~ text.
-
-Also, HTML elements are valid:
-<div class="flex w-full">
-  <span style="flex-grow: 1;">Left content</span>
-  <span>Right content</span>
-</div>
--->
-
----
-
-## class: px-20
-
-# Themes
-
-Slidev comes with powerful theming support. Themes can provide styles, layouts, components, or even configurations for tools. Switching between themes by just **one edit** in your frontmatter:
-
-<div grid="~ cols-2 gap-2" m="-t-2">
-
-```yaml
----
-theme: default
----
-```
-
-```yaml
----
-theme: seriph
----
-```
-
-<img border="rounded" src="https://github.com/slidevjs/themes/blob/main/screenshots/theme-default/01.png?raw=true">
-
-<img border="rounded" src="https://github.com/slidevjs/themes/blob/main/screenshots/theme-seriph/01.png?raw=true">
-
-</div>
-
-Read more about [How to use a theme](https://sli.dev/themes/use.html) and
-check out the [Awesome Themes Gallery](https://sli.dev/themes/gallery.html).
-
----
-
-## preload: false
-
-# Animations
-
-Animations are powered by [@vueuse/motion](https://motion.vueuse.org/).
-
-```html
-<div v-motion :initial="{ x: -80 }" :enter="{ x: 0 }">Slidev</div>
-```
-
-<div class="w-60 relative mt-6">
-  <div class="relative w-40 h-40">
-    <img
-      v-motion
-      :initial="{ x: 800, y: -100, scale: 1.5, rotate: -50 }"
-      :enter="final"
-      class="absolute top-0 left-0 right-0 bottom-0"
-      src="https://sli.dev/logo-square.png"
-    />
-    <img
-      v-motion
-      :initial="{ y: 500, x: -100, scale: 2 }"
-      :enter="final"
-      class="absolute top-0 left-0 right-0 bottom-0"
-      src="https://sli.dev/logo-circle.png"
-    />
-    <img
-      v-motion
-      :initial="{ x: 600, y: 400, scale: 2, rotate: 100 }"
-      :enter="final"
-      class="absolute top-0 left-0 right-0 bottom-0"
-      src="https://sli.dev/logo-triangle.png"
-    />
-  </div>
-
-  <div
-    class="text-5xl absolute top-14 left-40 text-[#2B90B6] -z-1"
-    v-motion
-    :initial="{ x: -80, opacity: 0}"
-    :enter="{ x: 0, opacity: 1, transition: { delay: 2000, duration: 1000 } }">
-    Slidev
-  </div>
-</div>
-
-<!-- vue script setup scripts can be directly used in markdown, and will only affects current page -->
-<script setup lang="ts">
-const final = {
-  x: 0,
-  y: 0,
-  rotate: 0,
-  scale: 1,
-  transition: {
-    type: 'spring',
-    damping: 10,
-    stiffness: 20,
-    mass: 2
-  }
-}
-</script>
-
-<div
-  v-motion
-  :initial="{ x:35, y: 40, opacity: 0}"
-  :enter="{ y: 0, opacity: 1, transition: { delay: 3500 } }">
-
-[Learn More](https://sli.dev/guide/animations.html#motion)
-
-</div>
-
----
-
-# LaTeX
-
-LaTeX is supported out-of-box powered by [KaTeX](https://katex.org/).
-
-<br>
-
-Inline $\sqrt{3x-1}+(1+x)^2$
-
-Block
-
-$$
-{1|3|all}
-\begin{array}{c}
-
-\nabla \times \vec{\mathbf{B}} -\, \frac1c\, \frac{\partial\vec{\mathbf{E}}}{\partial t} &
-= \frac{4\pi}{c}\vec{\mathbf{j}}    \nabla \cdot \vec{\mathbf{E}} & = 4 \pi \rho \\
-
-\nabla \times \vec{\mathbf{E}}\, +\, \frac1c\, \frac{\partial\vec{\mathbf{B}}}{\partial t} & = \vec{\mathbf{0}} \\
-
-\nabla \cdot \vec{\mathbf{B}} & = 0
-
-\end{array}
-$$
-
-<br>
-
-[Learn more](https://sli.dev/guide/syntax#latex)
-
----
-
-# Diagrams
-
-You can create diagrams / graphs from textual descriptions, directly in your Markdown.
-
-<div class="grid grid-cols-4 gap-5 pt-4 -mb-6">
-
-```mermaid {scale: 0.5}
-sequenceDiagram
-    Alice->John: Hello John, how are you?
-    Note over Alice,John: A typical interaction
-```
-
-```mermaid {theme: 'neutral', scale: 0.8}
-graph TD
-B[Text] --> C[Decision]
-C -->|One| D[Result 1]
-C -->|Two| E[Result 2]
-```
-
-```mermaid
-mindmap
-  root((mindmap))
-    Origins
-      Long history
-      ::icon(fa fa-book)
-      Popularisation
-        British popular psychology author Tony Buzan
-    Research
-      On effectivness<br/>and features
-      On Automatic creation
-        Uses
-            Creative techniques
-            Strategic planning
-            Argument mapping
-    Tools
-      Pen and paper
-      Mermaid
-```
-
-```plantuml {scale: 0.7}
-@startuml
-
-package "Some Group" {
-  HTTP - [First Component]
-  [Another Component]
-}
-
-node "Other Groups" {
-  FTP - [Second Component]
-  [First Component] --> FTP
-}
-
-cloud {
-  [Example 1]
-}
-
-
-database "MySql" {
-  folder "This is my folder" {
-    [Folder 3]
-  }
-  frame "Foo" {
-    [Frame 4]
-  }
-}
-
-
-[Another Component] --> [Example 1]
-[Example 1] --> [Folder 3]
-[Folder 3] --> [Frame 4]
-
-@enduml
-```
-
-</div>
-
-[Learn More](https://sli.dev/guide/syntax.html#diagrams)
-
----
-
-src: ./pages/multiple-entries.md
-hide: false
-
----
-
----
-
-layout: center
-class: text-center
-
----
-
-# Source
+# Resources
 
 - https://stackoverflow.com/a/31151932/11751294 
 - https://stackoverflow.com/a/553745/11751294 
 - https://dev.to/thibmaek/explain-coroutines-like-im-five-2d9
+- https://swiftrocks.com/how-async-await-works-internally-in-swift
+- https://stackoverflow.com/questions/74545387/golang-concurrency-vs-parallelism-vs-sequential?fbclid=IwAR1i0wWL6C9xf99BifWCLa3DZr1ysrzdiEmVyz3F7m-lWbqmdTJ4Y93hkls
+- https://nikomatsakis.github.io/ECE290-2023/?fbclid=IwAR1bPNZa_XXObfrzBlHM34ZwQaAU4SZL2Vdn76EVIlUwZ6eOHirpmEciIi0#82
+- https://devblogs.microsoft.com/dotnet/how-async-await-really-works/
+- https://gendignoux.com/blog/2021/04/01/rust-async-streams-futures-part1.html
+- https://shahbhat.medium.com/structured-concurrency-in-modern-programming-languages-part-i-e7cdb25ff172
 
+---
 
-[Documentations](https://sli.dev) · [GitHub](https://github.com/slidevjs/slidev) · [Showcases](https://sli.dev/showcases.html)
+# Still going
+
+- https://tenthousandmeters.com/blog/python-behind-the-scenes-12-how-asyncawait-works-in-python/
+- https://without.boats/blog/why-async-rust/
+- https://blog.yoshuawuyts.com/async-cancellation-1/
+- https://blog.yoshuawuyts.com/futures-concurrency/
+- https://tomaka.medium.com/a-look-back-at-asynchronous-rust-d54d63934a1c#3008
+- https://blog.yoshuawuyts.com/streams-concurrency/
+- https://rust-lang.github.io/async-book/
+- https://www.youtube.com/watch?v=ThjvMReOXYM
+- https://dave.cheney.net/2014/03/19/channel-axioms
+- https://fasterthanli.me/articles/understanding-rust-futures-by-going-way-too-deep
+- https://fasterthanli.me/articles/pin-and-suffering
+- https://groups.google.com/g/golang-nuts/c/uJxcfNsxh-0?pli=1
+
+---
+
+# And so on..
+
+- https://blog.yoshuawuyts.com/futures-concurrency-2/
+- https://blog.yoshuawuyts.com/tree-structured-concurrency/
+- https://applifting.io/blog/python-structured-concurrency
+- https://www.youtube.com/watch?v=GpqAQxH1Afc
+- https://stackoverflow.com/questions/39933929/why-thead-per-multiple-connections-model-is-considered-better-than-thread-per-co
+- https://without.boats/blog/thread-per-core/
+- https://marabos.nl/atomics/
+- https://en.wikipedia.org/wiki/Fork%E2%80%93join_model
+- https://tokio.rs/blog/2019-10-scheduler
+- https://www.youtube.com/watch?v=FNcXf-4CLH0
+- https://tokio.rs/tokio/tutorial/async
+- https://www.reddit.com/r/rust/comments/16dk9ya/async_rust_is_a_bad_language/
+
+---
+
+# Finally..
+
+- https://www.reddit.com/r/rust/comments/92th5t/why_is_futuresrs_poll_mechanism_better_than_event/
+- https://www.youtube.com/watch?v=oV9rvDllKEg
+- https://www.youtube.com/watch?v=7pU3gOVAeVQ
+- https://www.youtube.com/watch?v=0HwrZp9CBD4
+- https://stackoverflow.com/questions/22621514/is-scalas-actors-similar-to-gos-coroutines
+- https://google.github.io/comprehensive-rust/async.html
+- https://corrode.dev/blog/async/
+- https://bertptrs.nl/2023/04/27/how-does-async-rust-work.html
+- https://www.joelonsoftware.com/2002/11/11/the-law-of-leaky-abstractions/
+- https://jenkov.com/tutorials/java-concurrency/concurrency-vs-parallelism.html
+- https://github.com/ms2ag16/Books/blob/master/Designing%20Data-Intensive%20Applications%20-%20Martin%20Kleppmann.pdf
