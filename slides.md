@@ -260,7 +260,7 @@ for egg in ['A', 'B', 'C', 'D']:
 
 </div>
 
-<Logo src="/python_logo.png" class="w-10" />
+<Logo src="python_logo.png" class="w-10" />
 
 
 ---
@@ -319,7 +319,7 @@ fn main() {
 }
 ```
 
-<Logo src="/rust_logo.png" class="w-10 dark:invert" />
+<Logo src="rust_logo.png" class="w-10 dark:invert" />
 
 ---
 
@@ -340,7 +340,7 @@ fn main() {
 }
 ```
 
-<Logo src="/rust_logo.png" class="w-10 dark:invert" />
+<Logo src="rust_logo.png" class="w-10 dark:invert" />
 
 ---
 
@@ -440,7 +440,7 @@ func fryEgg(name string) string { /* ... */ }
 
 </div>
 
-<Logo src="/go_logo.png" class="w-10" />
+<Logo src="go_logo.png" class="w-10" />
 
 ---
 
@@ -490,7 +490,7 @@ Enum.each(eggs, fn _ ->
 end)
 
 ```
-<Logo src="/elixir_logo.png" class="w-10" />
+<Logo src="elixir_logo.png" class="w-10" />
 
 ---
 
@@ -522,7 +522,7 @@ const response = await Promise.all(eggs.map((user) => fryEgg(user)));
 console.log(response);
 ```
 
-<Logo src="/javascript-logo.png" class="w-10" />
+<Logo src="javascript-logo.png" class="w-10" />
 
 ---
 
@@ -603,7 +603,7 @@ async function gatherUserInfo(user) {
 }
 ```
 
-<Logo src="/javascript_logo.png" class="w-10" />
+<Logo src="javascript_logo.png" class="w-10" />
 
 <!--
 While it’s common to use async without knowing exactly what’s happening under the hood, I’m a firm believer that understanding how something actually works helps you to make even better use of it. For async/await in particular, understanding the mechanisms involved is especially helpful when you want to look below the surface, such as when you’re trying to debug things gone wrong or improve the performance of things otherwise gone right. In this post, then, we’ll deep-dive into exactly how await works at the language, compiler, and library level, so that you can make the most of these valuable features.
@@ -643,7 +643,7 @@ _(This is not actual working code, just to help you understand the model)_
 
 </div>
 
-<Logo src="/javascript_logo.png" class="w-10" />
+<Logo src="javascript_logo.png" class="w-10" />
 
 ---
 
@@ -834,7 +834,7 @@ func main() {
 func fryEgg(name string) string { /* ... */ }
 ```
 
-<Logo src="/go_logo.png" class="w-10" /> 
+<Logo src="go_logo.png" class="w-10" /> 
 
 ---
 
@@ -862,7 +862,7 @@ fn main() {
 fn fry_egg(name: &str) -> String { /* ... */ }
 ```
 
-<Logo src="/rust_logo.png" class="w-10 dark:invert" />
+<Logo src="rust_logo.png" class="w-10 dark:invert" />
 
 ---
 
