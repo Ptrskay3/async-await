@@ -522,7 +522,7 @@ const response = await Promise.all(eggs.map((user) => fryEgg(user)));
 console.log(response);
 ```
 
-<Logo src="javascript-logo.png" class="w-10" />
+<Logo src="javascript_logo.png" class="w-10" />
 
 ---
 
