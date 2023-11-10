@@ -35,80 +35,6 @@ The last comment block of each slide will be treated as slide notes. It will be 
 
 ---
 
-## transition: fade-out
-
-<div
-  v-motion
-  :initial="{ x: -80 }"
-  :enter="{ x: 0 }">
-  Slidev
-</div>
-
-# What is Slidev?
-
-Slidev is a slides maker and presenter designed for developers, consist of the following features
-
-- 📝 **Text-based** - focus on the content with Markdown, and then style them later
-- 🎨 **Themable** - theme can be shared and used with npm packages
-- 🧑‍💻 **Developer Friendly** - code highlighting, live coding with autocompletion
-- 🤹 **Interactive** - embedding Vue components to enhance your expressions
-- 🎥 **Recording** - built-in recording and camera view
-- 📤 **Portable** - export into PDF, PNGs, or even a hostable SPA
-- 🛠 **Hackable** - anything possible on a webpage
-
-<br>
-<br>
-
-Read more about [Why Slidev?](https://sli.dev/guide/why)
-
-<!--
-You can have `style` tag in markdown to override the style for the current page.
-Learn more: https://sli.dev/guide/syntax#embedded-styles
--->
-
-<style>
-h1 {
-  background-color: #2B90B6;
-  background-image: linear-gradient(45deg, #4EC5D4 10%, #146b8c 20%);
-  background-size: 100%;
-  -webkit-background-clip: text;
-  -moz-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  -moz-text-fill-color: transparent;
-}
-</style>
-
-<!--
-Here is another comment.
--->
-
----
-
-# Navigation
-
-Hover on the bottom-left corner to see the navigation's controls panel, [learn more](https://sli.dev/guide/navigation.html)
-
-### Keyboard Shortcuts
-
-|                                                    |                             |
-| -------------------------------------------------- | --------------------------- |
-| <kbd>right</kbd> / <kbd>space</kbd>                | next animation or slide     |
-| <kbd>left</kbd> / <kbd>shift</kbd><kbd>space</kbd> | previous animation or slide |
-| <kbd>up</kbd>                                      | previous slide              |
-| <kbd>down</kbd>                                    | next slide                  |
-
-<!-- https://sli.dev/guide/animations.html#click-animations -->
-
-<img
-  v-click
-  class="absolute -bottom-9 -left-7 w-80 opacity-50"
-  src="https://sli.dev/assets/arrow-bottom-left.svg"
-/>
-
-<p v-after class="absolute bottom-23 left-45 opacity-30 transform -rotate-10">Here!</p>
-
----
-
 # Concurrency is not parallelism
 
 ..although it may enable parallelism.
@@ -281,14 +207,14 @@ Did I choose the task of "frying eggs" by accident?
 [^1]: Windows and Mac used to use cooperative scheduling ~15 year ago.
 
 ---
-
+layout: image-left
+image: /schedulers_.png
+---
 # Schedulers
 
-<div class="flex flex-col h-screen items-center">
-  <img src="/schedulers_.png" class="w-90 rounded-lg" />
-</div>
-
 - Schedulers control what task to run on what worker, and when.
+- Minimize ready-time and also waiting-time
+- Not a busy-loop
 
 ---
 
@@ -428,7 +354,7 @@ fn main() {
 
 - Works well for a certain problems (UI)
 
-- Any possible in (sort of) any language
+- Possible in (sort of) any language
 
 ---
 
@@ -771,71 +697,72 @@ _(This is not actual working code, just to help you understand the model)_
 
 ---
 
-# join - TODO: collapse the try_* variants, we don't need that much detail
+# join/try_join
 
-- a.k.a. _all_, _gather_, _await_many_,  ..
-
-- Wait for multiple concurrent branches to complete, returning when **all** of them complete, or there was an error.
-
-- Short-circuit on errors.
-
-# TODO: maybe an useful example would be better for all..
-
-```js
-await Promise.all([promise1, promise2, ...promises])
-```
-- Either rejects completely, or returns all of the results in order.
-
----
-
-# try_join
-
-- a.k.a. _Promise.allSettled_
+- a.k.a. _Promise.all_/_Promise.allSettled_, _Task.WaitAll_, _asyncio.gather_, _Task.await_many_, ..
 
 - Wait for multiple concurrent branches to complete, returning when **all** of them complete.
+  - try_join: short-circuit on errors, cancel all remaining branches
+  - join: keep going on errors, report them at the end.
 
-- Continue on errors.<sup>1</sup>
+- Downloading multiple things at once, reading multiple files, (frying multiple eggs), ..
 
 ```js
-await Promise.allSettled([promise1, promise2, ...promises])
+async function attempt_to_get_two_sites_concurrently() {
+    let foo_page = await download_page("https://www.foo.com");
+    let bar_page = await download_page("https://www.bar.com");
+    return [foo_page, bar_page];
+}
 ```
-
-- Returns a single promise, describing the outcome of each branch, and it resolved when all of the input's promises resolve/reject. 
-
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-
-<sup>1</sup> <text class="opacity-40">On error, the other branches are still running, they don't get cancelled.</text>
 ---
 
-# select
+# join/try_join
 
-- a.k.a. _Promise.race_, _WhenAny_, ...
+- a.k.a. _Promise.all_/_Promise.allSettled_, _Task.WaitAll_, _asyncio.gather_, _Task.await_many_, ..
 
-- Launch all branches _concurrently_, then return with the first result when it resolves, or if there was an error.
+- Wait for multiple concurrent branches to complete, returning when **all** of them complete.
+  - try_join: short-circuit on errors, cancel all remaining branches
+  - join: keep going on errors, report them at the end.
 
-- Short-circuit on errors.
+- Downloading multiple things at once, reading multiple files, (frying multiple eggs), ..
 
-```js
-await Promise.race([promise1, promise2, ...promises])
+
+```js {none}
+async function attempt_to_get_two_sites_concurrently() {
+    let foo_page = await download_page("https://www.foo.com");
+    let bar_page = await download_page("https://www.bar.com");
+    return [foo_page, bar_page];
+}
 ```
 
-- Timeouts, graceful shutdowns, etc..
+- ❌ WRONG - don't do that. Instead, do this:
+
+```js
+async function get_two_sites_concurrently() {
+    let foo_page = download_page("https://www.foo.com");
+    let bar_page = download_page("https://www.bar.com");
+    return await Promise.all([foo_page, bar_page]);
+}
+```
 
 ---
 
-# try_select
+# select/try_select
 
-- a.k.a. _Promise.any_
+- a.k.a. _Promise.race_/_Promise.any_, _Task.WhenAny_, _asyncio.wait_ ...
 
-- Launch all branches _concurrently_, then return with the first result when it completes regardless of the result.
+- Launch all branches _concurrently_, then return with the first result when it resolves.
+  - try_select: short-circuit on errors, cancel the remaining branches
+  - select: keep going on errors, returns the first non-error result
+
+- Timeouts, graceful shutdowns, load balancing, etc..
 
 ```js
-await Promise.any([promise1, promise2, ...promises])
+async function race_two_sites_with() {
+    let foo_page = download_page("https://www.foo.com");
+    let bar_page = download_page("https://www.bar.com");
+    return await Promise.race([foo_page, bar_page]);
+}
 ```
 
 ---
