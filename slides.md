@@ -825,7 +825,9 @@ image: structured_concurrency_2.png
 
 # Channels
 
-- A communication/synchronization model via message passing. Can be used with OS threads, async context, coroutines.. basically everywhere.
+- The producer/consumer model. Producers asynchronously produce data, and consumers asynchronously consume that data — or more simply put, a communication/synchronization model via message passing.
+
+- Can be used with OS threads, async context, coroutines.. basically everywhere.
   - __1:1__: Just like a real-world channel, it has two ends, and they can communicate.
   - __1:N__: One sender communicates with many receivers. E.g. broadcasting messages to clients
   - __N:1__: Many senders and one receiver communicates. E.g. Gathering results from multiple sources.
