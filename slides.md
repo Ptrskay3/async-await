@@ -208,7 +208,7 @@ Did I choose the task of "frying eggs" by accident?
 
 ---
 layout: image-left
-image: /schedulers_.png
+image: schedulers_.png
 ---
 # Schedulers
 
@@ -768,7 +768,7 @@ async function race_two_sites_with() {
 ---
 layout: image-left
 backgroundSize: clip
-image: /structured_concurrency_1.png
+image: structured_concurrency_1.png
 ---
 # Structured concurrency
 
@@ -778,7 +778,7 @@ image: /structured_concurrency_1.png
 ---
 layout: image-left
 backgroundSize: clip
-image: /structured_concurrency_2.png
+image: structured_concurrency_2.png
 ---
 # Structured concurrency
 
