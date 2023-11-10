@@ -11,7 +11,7 @@
 use futures::stream::StreamExt;
 use futures_util::pin_mut;
 
-#[tokio::main(flavor = "current_thread")]
+#[tokio::main]
 async fn main() {
     let stream = futures::stream::iter(["A", "B", "C", "D"]).then(fry_egg);
     // let stream = futures::stream::iter(["A", "B", "C", "D"]).map(fry_egg).buffered(2);

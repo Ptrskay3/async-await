@@ -918,6 +918,7 @@ for await (const egg of eggs) {
 - Can be used when asynchronous tasks have a dependency on each other (e.g. we need to know the previous result to continue)
 - Flexible, they can be buffered, unordered, chunked, etc..
 - Streams are used for infinite scrolls, requesting for paginated results
+- TODO: add the rate limiting argument to this
 
 ---
 
