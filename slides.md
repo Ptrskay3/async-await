@@ -52,6 +52,14 @@ The last comment block of each slide will be treated as slide notes. It will be 
 
 <br>
 
+
+<div v-click>
+
+  - I'm not going to talk about: synchronization, locks, atomics, and memory in general.
+
+</div>
+<br>
+
 <div v-click>
 
 
@@ -64,7 +72,7 @@ print("Hello, async world!")
 
 <div v-click>
   <Logo src="python_logo.png" class="w-10" />
-  <Arrow x1="200" y1="255" x2="915" y2="494" color="rgb(55, 125, 125)" />
+  <Arrow x1="200" y1="315" x2="915" y2="494" color="rgb(55, 125, 125)" />
 </div>
 ---
 
@@ -562,7 +570,8 @@ console.log(response);
 # Let's talk about JavaScript!
 
 - JavaScript said to be _asynchronous and single threaded_.
-
+- The evolution of concurrency was: Callbacks -> Promises -> async/await
+- Let's try frying eggs synchronously!
 ```js
 function fryEgg(egg) {
   return fetch(`http://127.0.0.1:3001/${egg}`).then((resp) => resp.text());
@@ -575,7 +584,7 @@ for (const egg of ['A', 'B', 'C', 'D']) {
 
 ---
 
-# JavaScript?
+# Let's talk about JavaScript!
 
 ```js
 function fryEgg(egg) {
@@ -606,7 +615,7 @@ This is clearly running concurrently.
 
 ---
 
-# JavaScript?
+# Let's talk about JavaScript!
 
 ```js {all|1-5|7-9|all}
 async function fryEgg(name) {
@@ -789,6 +798,8 @@ async function get_two_sites_concurrently() {
 
 - Timeouts, graceful shutdowns, load balancing, running two endless processes concurrently (a webserver and a worker loop), waiting for user input, etc..
 
+- Be careful with select branches that have side-effects!
+
 ```js
 async function get_site_or_abort() {
     let cancel_signal = cancel_signal();
@@ -833,9 +844,11 @@ image: structured_concurrency_2.png
   - __N:1__: Many senders and one receiver communicates. E.g. Gathering results from multiple sources.
   - __N:M__: Many senders, many receivers. E.g. a chat, or basically any distributed system.
 
-- These are not always distinguished. An N:M channel basically can handle all the other special cases too.
 - Bounded + backpressure, Unbounded
 - Can be very flexible with _select_ operations.
+<div class="flex flex-col h-screen items-center">
+<img src="/channel.png" class="w-50" />
+</div>
 
 ---
 
@@ -1008,3 +1021,4 @@ for await (const egg of eggs) {
 - [Martin Kleppmann - Designing Data Intensive Applications](https://github.com/ms2ag16/Books/blob/master/Designing%20Data-Intensive%20Applications%20-%20Martin%20Kleppmann.pdf)
 - [Structured concurrency in modern programming languages](https://shahbhat.medium.com/structured-concurrency-in-modern-programming-languages-part-i-e7cdb25ff172)
 - [JavaScript event-loop](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Event_loop)
+- [Java concurrency in practice](https://leon-wtf.github.io/doc/java-concurrency-in-practice.pdf)
