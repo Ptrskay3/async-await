@@ -941,69 +941,70 @@ for await (const egg of eggs) {
 
 # Resources
 
-- https://stackoverflow.com/a/31151932/11751294 
-- https://stackoverflow.com/a/553745/11751294 
-- https://dev.to/thibmaek/explain-coroutines-like-im-five-2d9
-- https://swiftrocks.com/how-async-await-works-internally-in-swift
-- https://stackoverflow.com/questions/74545387/golang-concurrency-vs-parallelism-vs-sequential?fbclid=IwAR1i0wWL6C9xf99BifWCLa3DZr1ysrzdiEmVyz3F7m-lWbqmdTJ4Y93hkls
-- https://nikomatsakis.github.io/ECE290-2023/?fbclid=IwAR1bPNZa_XXObfrzBlHM34ZwQaAU4SZL2Vdn76EVIlUwZ6eOHirpmEciIi0#82
-- https://gendignoux.com/blog/2021/04/01/rust-async-streams-futures-part1.html
-- https://gendignoux.com/blog/2021/04/08/rust-async-streams-futures-part2.html
+- [What is a coroutine? - 1](https://stackoverflow.com/a/31151932/11751294)
+- [What is a coroutine? - 2](https://stackoverflow.com/a/553745/11751294)
+- [Explain coroutines like I'm five](https://dev.to/thibmaek/explain-coroutines-like-im-five-2d9)
+- [How async await works internally in Swift](https://swiftrocks.com/how-async-await-works-internally-in-swift)
+- [Golang - Concurrency vs Parallelism vs Sequential](https://stackoverflow.com/questions/74545387/golang-concurrency-vs-parallelism-vs-sequential?fbclid=IwAR1i0wWL6C9xf99BifWCLa3DZr1ysrzdiEmVyz3F7m-lWbqmdTJ4Y93hkls)
+- [Concurrency and shared mutation](https://nikomatsakis.github.io/ECE290-2023/?fbclid=IwAR1bPNZa_XXObfrzBlHM34ZwQaAU4SZL2Vdn76EVIlUwZ6eOHirpmEciIi0#82)
+- [Asynchronous streams in Rust (part 1)](https://gendignoux.com/blog/2021/04/01/rust-async-streams-futures-part1.html)
+- [Asynchronous streams in Rust (part 2)](https://gendignoux.com/blog/2021/04/08/rust-async-streams-futures-part2.html)
 
 ---
 
 # ..and some more
 
-- https://tenthousandmeters.com/blog/python-behind-the-scenes-12-how-asyncawait-works-in-python/
-- https://without.boats/blog/why-async-rust/
-- https://blog.yoshuawuyts.com/async-cancellation-1/
-- https://blog.yoshuawuyts.com/futures-concurrency/
-- https://tomaka.medium.com/a-look-back-at-asynchronous-rust-d54d63934a1c#3008
-- https://rust-lang.github.io/async-book/
-- https://www.youtube.com/watch?v=ThjvMReOXYM
-- https://dave.cheney.net/2014/03/19/channel-axioms
-- https://fasterthanli.me/articles/understanding-rust-futures-by-going-way-too-deep
-- https://fasterthanli.me/articles/pin-and-suffering
-- https://groups.google.com/g/golang-nuts/c/uJxcfNsxh-0?pli=1
+- [Python behind the scenes #12: how async/await works in Python](https://tenthousandmeters.com/blog/python-behind-the-scenes-12-how-asyncawait-works-in-python/)
+- [Why async Rust?](https://without.boats/blog/why-async-rust/)
+- [Async cancellation](https://blog.yoshuawuyts.com/async-cancellation-1/)
+- [Futures concurrency](https://blog.yoshuawuyts.com/futures-concurrency/)
+- [A look back at asynchronous Rust](https://tomaka.medium.com/a-look-back-at-asynchronous-rust-d54d63934a1c#3008)
+- [Rust Async Book](https://rust-lang.github.io/async-book/)
+- [Crust of Rust: async/await](https://www.youtube.com/watch?v=ThjvMReOXYM)
+- [Go Channel axioms](https://dave.cheney.net/2014/03/19/channel-axioms)
+- [Understanding Rust futures by going way too deep](https://fasterthanli.me/articles/understanding-rust-futures-by-going-way-too-deep)
+- [Pin and suffering](https://fasterthanli.me/articles/pin-and-suffering)
+- [Channels vs actors](https://groups.google.com/g/golang-nuts/c/uJxcfNsxh-0?pli=1)
 
 ---
 
 # still going..
 
-- https://blog.yoshuawuyts.com/futures-concurrency-2/
-- https://blog.yoshuawuyts.com/tree-structured-concurrency/
-- https://applifting.io/blog/python-structured-concurrency
-- https://www.youtube.com/watch?v=GpqAQxH1Afc
-- https://stackoverflow.com/questions/39933929/why-thead-per-multiple-connections-model-is-considered-better-than-thread-per-co
-- https://without.boats/blog/thread-per-core/
-- https://marabos.nl/atomics/
-- https://tokio.rs/blog/2019-10-scheduler
-- https://www.youtube.com/watch?v=FNcXf-4CLH0
-- https://tokio.rs/tokio/tutorial/async
-- https://www.reddit.com/r/rust/comments/16dk9ya/async_rust_is_a_bad_language/
+- [Futures concurrency](https://blog.yoshuawuyts.com/futures-concurrency-2/)
+- [Tree structured concurrency](https://blog.yoshuawuyts.com/tree-structured-concurrency/)
+- [Python: structured concurrency](https://applifting.io/blog/python-structured-concurrency)
+- [Next-Level Concurrent Programming In Python With Asyncio](https://www.youtube.com/watch?v=GpqAQxH1Afc)
+- [Why thead-per-multiple-connections model is considered better than thread-per-connection model?](https://stackoverflow.com/questions/39933929/why-thead-per-multiple-connections-model-is-considered-better-than-thread-per-co)
+- [Thread-per-core](https://without.boats/blog/thread-per-core/)
+- [Rust Atomics and Locks - Mara Bos](https://marabos.nl/atomics/)
+- [Making the Tokio scheduler 10x faster](https://tokio.rs/blog/2019-10-scheduler)
+- [Async/await in Rust: Introduction](https://www.youtube.com/watch?v=FNcXf-4CLH0)
+- [Async in depth](https://tokio.rs/tokio/tutorial/async)
+- [Async Rust is a bad language - comments](https://www.reddit.com/r/rust/comments/16dk9ya/async_rust_is_a_bad_language/)
 
 
 ---
 
 # I promise there's ony one slide left
 
-- https://www.reddit.com/r/rust/comments/92th5t/why_is_futuresrs_poll_mechanism_better_than_event/
-- https://www.youtube.com/watch?v=oV9rvDllKEg
-- https://www.youtube.com/watch?v=7pU3gOVAeVQ
-- https://www.youtube.com/watch?v=0HwrZp9CBD4
-- https://stackoverflow.com/questions/22621514/is-scalas-actors-similar-to-gos-coroutines
-- https://google.github.io/comprehensive-rust/async.html
-- https://blog.yoshuawuyts.com/streams-concurrency/
-- https://en.wikipedia.org/wiki/Fork%E2%80%93join_model
-- https://corrode.dev/blog/async/
-- https://bertptrs.nl/2023/04/27/how-does-async-rust-work.html
-- https://devblogs.microsoft.com/dotnet/how-async-await-really-works/
+- [Why is futures.rs poll mechanism better than event bases mechanisms](https://www.reddit.com/r/rust/comments/92th5t/why_is_futuresrs_poll_mechanism_better_than_event/)
+- [Concurrency is not parallelism by Rob Pike](https://www.youtube.com/watch?v=oV9rvDllKEg)
+- [Let’s write async rust from the ground up! by Conrad Ludgate](https://www.youtube.com/watch?v=7pU3gOVAeVQ)
+- [1 Hour Dive into Asynchronous Rust](https://www.youtube.com/watch?v=0HwrZp9CBD4)
+- [Is Scala's actors similar to Go's coroutines?](https://stackoverflow.com/questions/22621514/is-scalas-actors-similar-to-gos-coroutines)
+- [Comprehensive Rust - Async](https://google.github.io/comprehensive-rust/async.html)
+- [Streams concurrency](https://blog.yoshuawuyts.com/streams-concurrency/)
+- [Fork-join model](https://en.wikipedia.org/wiki/Fork%E2%80%93join_model)
+- [The State of Async Rust: Runtimes](https://corrode.dev/blog/async/)
+- [How does async Rust work?](https://bertptrs.nl/2023/04/27/how-does-async-rust-work.html)
+- [How Async/Await Really Works in C#](https://devblogs.microsoft.com/dotnet/how-async-await-really-works/)
 
 ---
 
 # Thanks for listening!
 
-- https://www.joelonsoftware.com/2002/11/11/the-law-of-leaky-abstractions/
-- https://jenkov.com/tutorials/java-concurrency/concurrency-vs-parallelism.html
-- https://github.com/ms2ag16/Books/blob/master/Designing%20Data-Intensive%20Applications%20-%20Martin%20Kleppmann.pdf
-- https://shahbhat.medium.com/structured-concurrency-in-modern-programming-languages-part-i-e7cdb25ff172
+- [Leaky abstractions](https://www.joelonsoftware.com/2002/11/11/the-law-of-leaky-abstractions/)
+- [Concurrency vs. Parallelism](https://jenkov.com/tutorials/java-concurrency/concurrency-vs-parallelism.html)
+- [Martin Kleppmann - Designing Data Intensive Applications](https://github.com/ms2ag16/Books/blob/master/Designing%20Data-Intensive%20Applications%20-%20Martin%20Kleppmann.pdf)
+- [Structured concurrency in modern programming languages](https://shahbhat.medium.com/structured-concurrency-in-modern-programming-languages-part-i-e7cdb25ff172)
+- [JavaScript event-loop](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Event_loop)
