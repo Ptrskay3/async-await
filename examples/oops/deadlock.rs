@@ -19,7 +19,7 @@ async fn main() {
 async fn work(mutex: &Mutex<i32>) {
     let mut v = mutex.lock().unwrap();
     println!("locked");
-    // slow network request
     tokio::time::sleep(Duration::from_millis(100)).await;
     *v += 1;
+    // The mutex is unlocked here, at the end of scope
 }
