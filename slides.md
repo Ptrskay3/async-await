@@ -55,7 +55,7 @@ The last comment block of each slide will be treated as slide notes. It will be 
 
 <div v-click>
 
-  - I'm not going to talk about: synchronization, locks, atomics, and memory in general.
+  - I'm not going to talk about: synchronization, async destructors, async cancellation, locks, atomics, and memory in general.
 
 </div>
 <br>
@@ -72,7 +72,7 @@ print("Hello, async world!")
 
 <div v-click>
   <Logo src="python_logo.png" class="w-10" />
-  <Arrow x1="200" y1="315" x2="915" y2="494" color="rgb(55, 125, 125)" />
+  <Arrow x1="200" y1="345" x2="915" y2="494" color="rgb(55, 125, 125)" />
 </div>
 ---
 
@@ -629,7 +629,56 @@ for (const egg of ['A', 'B', 'C', 'D']) {
 }
 ```
 
---- 
+---
+
+# JavaScript — How to bridge callbacks, promises and async/await
+
+```js {all|1-3|5-12|14-18}
+function doSomethingThenCallback(f) {
+  f();
+}
+
+async function asyncWrapper() {
+  return await new Promise((resolve) => {
+    doSomethingThenCallback(() => {
+      console.log('in callback');
+      resolve();
+    });
+  });
+}
+
+console.log('start executing');
+
+await asyncWrapper().then(() => {
+  console.log('asyncWrapper done..');
+});
+```
+
+---
+
+# JavaScript — How to bridge callbacks, promises and async/await
+
+```js {14-17}
+function doSomethingThenCallback(f) {
+  f();
+}
+
+async function asyncWrapper() {
+  return await new Promise((resolve) => {
+    doSomethingThenCallback(() => {
+      console.log('in callback');
+      resolve();
+    });
+  });
+}
+
+console.log('start executing');
+
+await asyncWrapper();
+console.log('asyncWrapper done..');
+```
+
+---
 
 # Async under the hood
 
@@ -933,9 +982,6 @@ for await (const egg of eggs) {
 - Streams are used for infinite scrolls, requesting for paginated results
 - TODO: add the rate limiting argument to this
 
----
-
-# Async cancellation & async destructors - maybe a word or two, but ths is too advanced
 
 ---
 

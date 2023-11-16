@@ -11,12 +11,12 @@ use std::sync::Mutex;
 async fn main() {
     let mutex = Mutex::new(0);
 
-    join!(work(&mutex), work(&mutex));
+    join!(add_one(&mutex), add_one(&mutex));
 
     println!("{}", *mutex.lock().unwrap());
 }
 
-async fn work(mutex: &Mutex<i32>) {
+async fn add_one(mutex: &Mutex<i32>) {
     let mut v = mutex.lock().unwrap();
     println!("locked");
     tokio::time::sleep(Duration::from_millis(100)).await;
