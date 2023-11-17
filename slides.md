@@ -259,7 +259,7 @@ image: schedulers_.png
 
 ---
 
-# Question
+# Context
 
 - [localhost:3001](localhost:3001/hello)
 
@@ -933,34 +933,6 @@ func fryEgg(name string) string { /* ... */ }
 
 ---
 
-# Channels
-
-```rust {all|4|6-11|13-17|all}
-use std::sync::mpsc::channel;
-
-fn main() {
-    let (sender, receiver) = channel();
-
-    std::thread::scope(|scope| {
-        for name in &["A", "B", "C", "D"] {
-            let sender = sender.clone();
-            scope.spawn(move || sender.send(fry_egg(name)).unwrap());
-        }
-    });
-
-    drop(sender);
-    while let Ok(item) = receiver.recv() {
-        println!("{item}");
-    }
-}
-
-fn fry_egg(name: &str) -> String { /* ... */ }
-```
-
-<Logo src="rust_logo.png" class="w-10 dark:invert" />
-
----
-
 # Streams
 
 - Asynchronous equivalent of for loops, each item is yielded asynchronously
@@ -993,6 +965,7 @@ for await (const egg of eggs) {
 - Don't mix heavy synchronous and asynchronous code -> blocking the caller thread
 - message passing with channels > shared memory (usually)
 - shared memory deadlock - be careful with dependencies on other tasks
+- you __can__ invoke asynchronous code in synchronous context if you really want to
 - logging + concurrency is a very hard topic
 
 ---
