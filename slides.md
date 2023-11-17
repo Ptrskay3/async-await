@@ -140,14 +140,10 @@ Did I choose the task of "frying eggs" by accident?
 <br>
 <br>
 
-<h4 v-click>The number of cooks wasn't what was limiting you from going faster.</h4>
+<h4 v-click>The number of cooks wasn't what was limiting you from going faster. FIXME: this sentence doesn't really belong here</h4>
 
 ---
 
-
-<img src="/multithread.png" class="object-none h-120 w-250" />
-
----
 
 # CPU-bound vs. IO-bound
 
@@ -385,6 +381,11 @@ fn main() {
 
 ---
 
+
+<img src="/multithread.png" class="object-none h-120 w-250" />
+
+---
+
 # Event-driven programming
 
 - The "callback" way
@@ -582,6 +583,8 @@ for (const egg of ['A', 'B', 'C', 'D']) {
 }
 ```
 
+<Logo src="javascript_logo.png" class="w-10" />
+
 ---
 
 # Let's talk about JavaScript!
@@ -613,6 +616,9 @@ D
 This is clearly running concurrently.
 </div>
 
+<Logo src="javascript_logo.png" class="w-10" />
+
+
 ---
 
 # Let's talk about JavaScript!
@@ -628,6 +634,9 @@ for (const egg of ['A', 'B', 'C', 'D']) {
   console.log(await fryEgg(egg));
 }
 ```
+
+<Logo src="javascript_logo.png" class="w-10" />
+
 
 ---
 
@@ -654,6 +663,9 @@ await asyncWrapper().then(() => {
 });
 ```
 
+<Logo src="javascript_logo.png" class="w-10" />
+
+
 ---
 
 # JavaScript — How to bridge callbacks, promises and async/await
@@ -677,6 +689,9 @@ console.log('start executing');
 await asyncWrapper();
 console.log('asyncWrapper done..');
 ```
+
+<Logo src="javascript_logo.png" class="w-10" />
+
 
 ---
 
@@ -726,7 +741,7 @@ async function gatherUserInfo(user) {
 
 ```ts
 const State1 = { user, userPreferences, promise };
-const State2 = { user, userPreferences, pictures }; 
+const State2 = { user, userPreferences, pictures };
 type StateMachine = typeof State1 | typeof State2;
 ```
 
@@ -950,10 +965,8 @@ for await (const egg of eggs) {
 
 - For IO-bound iterations, it's already non-blocking
 - Can be used when asynchronous tasks have a dependency on each other (e.g. we need to know the previous result to continue)
-- Flexible, they can be buffered, unordered, chunked, etc..
-- Streams are used for infinite scrolls, requesting for paginated results
-- TODO: add the rate limiting argument to this
-
+- Flexible, they can be buffered (rate limiting), unordered, chunked, etc..
+- Streams are used e.g. for infinite scrolls, requesting for paginated results
 
 ---
 
@@ -969,7 +982,6 @@ for await (const egg of eggs) {
 - logging + concurrency is a very hard topic
 
 ---
-
 
 # Resources
 
@@ -1014,7 +1026,6 @@ for await (const egg of eggs) {
 - [Async in depth](https://tokio.rs/tokio/tutorial/async)
 - [Async Rust is a bad language - comments](https://www.reddit.com/r/rust/comments/16dk9ya/async_rust_is_a_bad_language/)
 
-
 ---
 
 # I promise there's ony one slide left
@@ -1041,3 +1052,4 @@ for await (const egg of eggs) {
 - [Structured concurrency in modern programming languages](https://shahbhat.medium.com/structured-concurrency-in-modern-programming-languages-part-i-e7cdb25ff172)
 - [JavaScript event-loop](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Event_loop)
 - [Java concurrency in practice](https://leon-wtf.github.io/doc/java-concurrency-in-practice.pdf)
+- [Correcting Common Async/Await Mistakes in .NET 8 by Brandon Minnick](https://www.youtube.com/watch?v=zhCRX3B7qwY)
