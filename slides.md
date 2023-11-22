@@ -975,7 +975,7 @@ for await (const item of generator()) {
 - Shared memory errors/deadlocks - be careful with dependencies on other tasks
 - There's a way to invoke asynchronous code in synchronous context if you really want to, e.g.: in C#
   `Task.GetAwaiter().GetResult()`
-- Logging + concurrency is a very hard topic
+- Concurrent logging requires special care
 
 ---
 
@@ -1008,7 +1008,7 @@ for await (const item of generator()) {
 
 ---
 
-# still going..
+# ..still going
 
 - [Futures concurrency](https://blog.yoshuawuyts.com/futures-concurrency-2/)
 - [Tree structured concurrency](https://blog.yoshuawuyts.com/tree-structured-concurrency/)
