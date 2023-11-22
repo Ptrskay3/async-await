@@ -16,7 +16,7 @@ mdc: true
 
 # Hello, _async_ world!
 
-<img v-click src="/qr.png" class="absolute -bottom-1 -left-1 w-50" />
+<img v-click src="/qr.png" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 scale-52" />
 
 Péter Leéh
 
@@ -551,7 +551,7 @@ end)
 
 # Async-await
 
-```js
+```js {all|1-5|7,9-10}
 async function fryEgg(user) {
   const response = await fetch(`http://127.0.0.1:3001/${user}`);
   const result = await response.text();
@@ -563,6 +563,14 @@ const eggs = ['A', 'B', 'C', 'D'];
 const response = await Promise.all(eggs.map((user) => fryEgg(user)));
 console.log(response);
 ```
+
+<div v-click>
+
+<br>
+
+- Notice it's not using a for-loop, it uses _Promise.all_.. Let's see why.
+
+</div>
 
 <Logo src="javascript_logo.png" class="w-10" />
 
@@ -634,43 +642,31 @@ for (const egg of ['A', 'B', 'C', 'D']) {
   console.log(await fryEgg(egg));
 }
 ```
+<div v-click>
 
-<Logo src="javascript_logo.png" class="w-10" />
+<br />
+<br />
 
-
----
-
-# JavaScript — How to bridge callbacks, promises and async/await
-
-```js {all|1-3|5-12|14-18}
-function doSomethingThenCallback(f) {
-  f();
-}
-
-async function asyncWrapper() {
-  return await new Promise((resolve) => {
-    doSomethingThenCallback(() => {
-      console.log('in callback');
-      resolve();
-    });
-  });
-}
-
-console.log('start executing');
-
-await asyncWrapper().then(() => {
-  console.log('asyncWrapper done..');
-});
+```bash
+╰─❯ timeit deno run --allow-net sync_second_attempt.js
+B
+A
+C
+D
+8sec 59ms 172µs 776ns
 ```
 
+</div>
 <Logo src="javascript_logo.png" class="w-10" />
 
 
 ---
 
-# JavaScript — How to bridge callbacks, promises and async/await
+# Let's talk about JavaScript!
 
-```js {14-17}
+How to bridge callbacks, promises and async/await?
+
+```js {all|1-3|5-12|14-19|all}
 function doSomethingThenCallback(f) {
   f();
 }
@@ -687,11 +683,11 @@ async function asyncWrapper() {
 console.log('start executing');
 
 await asyncWrapper();
-console.log('asyncWrapper done..');
+
+console.log('asyncWrapper done');
 ```
 
 <Logo src="javascript_logo.png" class="w-10" />
-
 
 ---
 
@@ -955,13 +951,12 @@ func fryEgg(name string) string { /* ... */ }
 <br>
 
 ```js
-// TODO: this code example is useless
-for await (const egg of eggs) {
-  console.log(egg);
+for await (const item of generator()) {
+  /* ... */
 }
 ```
 
-(JavaScript is kind of a special kid here, see `examples/stream/for-await-actually.js`)
+(JavaScript is kind of a special kid here, see `examples/stream/for-await-actually.js` and the [official docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for-await...of).)
 
 - For IO-bound iterations, it's already non-blocking
 - Can be used when asynchronous tasks have a dependency on each other (e.g. we need to know the previous result to continue)
@@ -976,10 +971,11 @@ for await (const egg of eggs) {
 
 - Don't use async when it's not necessary, especially don't run multithreaded for a few async stuff.
 - Don't mix heavy synchronous and asynchronous code -> blocking the caller thread
-- message passing with channels > shared memory (usually)
-- shared memory deadlock - be careful with dependencies on other tasks
-- you __can__ invoke asynchronous code in synchronous context if you really want to
-- logging + concurrency is a very hard topic
+- Message passing with channels over shared memory (often easier, if your design allows that)
+- Shared memory errors/deadlocks - be careful with dependencies on other tasks
+- There's a way to invoke asynchronous code in synchronous context if you really want to, e.g.: in C#
+  `Task.GetAwaiter().GetResult()`
+- Logging + concurrency is a very hard topic
 
 ---
 
