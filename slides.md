@@ -55,7 +55,7 @@ The last comment block of each slide will be treated as slide notes. It will be 
 
 <div v-click>
 
-  - I'm not going to talk about: synchronization, async destructors, async cancellation, locks, atomics, and memory in general.
+  - I'm not going to talk about: synchronization, async destructors, cancellation, locks, atomics, and memory in general. 
 
 </div>
 <br>
@@ -78,17 +78,35 @@ print("Hello, async world!")
 
 # Concurrency is not parallelism
 
-..although it may enable parallelism.
+<br>
+
+Concurrency and parallelism comes up in the context of CS, but in fact they're everywhere in real world processes.
+
+<div v-click>
+
+The words _concurrent_ and _parallel_ almost mean the same by intuition.
+
+</div>
+
+<div v-click>
+
+Actually they're __different__.
+
+</div>
+
+
+<div v-click>
+
 
 <img src="/eggs.png" class="absolute bottom-0 left-170 w-50 transform -rotate-10" />
 
-<p v-click>
 
 ## An analogy
 
 You need to fry 4 eggs. To cook an egg you crack it onto the griddle, wait for a few minutes, then take it off.
 
-</p>
+</div>
+
 
 ---
 
@@ -125,11 +143,19 @@ You need to fry 4 eggs. To cook an egg you crack it onto the griddle, wait for a
 
 # Concurrency is not parallelism
 
+
 <br>
+
+#### Concurrency is centered around _interruptability_.
+
+<br>
+
+#### Parallelism is centered around _independability_.
+
 <br>
 <br>
 
-<h3>
+<h3 v-click >
 Did I choose the task of "frying eggs" by accident?
 </h3>
 
@@ -139,8 +165,6 @@ Did I choose the task of "frying eggs" by accident?
 <h3 v-click>No.</h3>
 <br>
 <br>
-
-<h4 v-click>The number of cooks wasn't what was limiting you from going faster. FIXME: this sentence doesn't really belong here</h4>
 
 ---
 
@@ -171,7 +195,7 @@ Did I choose the task of "frying eggs" by accident?
 <div v-click>
 
 
-### On the other hand, for some tasks, we're not in control how fast they're going to complete — it depends on <text class="font-bold font-italic">external factors</text>. These are called <text class="font-extrabold text-transparent text-md bg-clip-text bg-gradient-to-r from-blue-400 to-red-600">IO-bound</text> tasks.
+### On the other hand, for some tasks, we're not fully in control how fast they're going to complete — it depends on <text class="font-bold font-italic">external factors</text>. These are called <text class="font-extrabold text-transparent text-md bg-clip-text bg-gradient-to-r from-blue-400 to-red-600">IO-bound</text> tasks.
 
 </div>
 
@@ -179,7 +203,7 @@ Did I choose the task of "frying eggs" by accident?
 
 <div v-click>
 
-- Dealing with network (databases, APIs) and files.
+- Dealing with network (databases, APIs), files, and also UI.
 
 </div>
 
@@ -203,8 +227,7 @@ Did I choose the task of "frying eggs" by accident?
 
 - In reality, the fastest part of computers is the CPU — memory, disk, network are all much slower.
 
-- Dealing with network and files is ~90% of software you usually write.
-
+- Dealing with network and files is in ~80% of software you usually write.
 
 ---
 
@@ -293,7 +316,7 @@ for egg in ['A', 'B', 'C', 'D']:
 <div v-click>
 
 
-### Is this code _efficient?_
+### Is this code _efficient?_ 
 
 </div>
 
@@ -966,8 +989,6 @@ for await (const item of generator()) {
 ---
 
 # Gotchas
-
-(just sketches, needs examples and details)
 
 - Don't use async when it's not necessary, especially don't run multithreaded for a few async stuff.
 - Don't mix heavy synchronous and asynchronous code -> blocking the caller thread
