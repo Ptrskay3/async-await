@@ -219,6 +219,8 @@ Did I choose the task of "frying eggs" by accident?
 
 # What is concurrency? Why is it important?
 
+- Remember the sequential example? - That's the default behavior.
+
 - Concurrency is being able to break your program into tasks and then interleave these tasks.
 
 - Work units are paused and resumed sequentially
@@ -227,7 +229,7 @@ Did I choose the task of "frying eggs" by accident?
 
 - In reality, the fastest part of computers is the CPU — memory, disk, network are all much slower.
 
-- Dealing with network and files is in ~80% of software you usually write.
+- Dealing with network, files or UI is ~80 of software you write.
 
 ---
 
@@ -616,31 +618,18 @@ for (const egg of ['A', 'B', 'C', 'D']) {
 
 <Logo src="javascript_logo.png" class="w-10" />
 
----
-
-# Let's talk about JavaScript!
-
-```js
-function fryEgg(egg) {
-  return fetch(`http://127.0.0.1:3001/${egg}`).then((resp) => resp.text());
-}
-
-for (const egg of ['A', 'B', 'C', 'D']) {
-  fryEgg(egg).then((res) => console.log(res));
-}
-```
-
-<br />
-<br />
+<div v-click>
 
 ```bash
 ╰─❯ timeit deno run --allow-net sync_first_attempt.js
-B
 A
+B
 C
 D
 2sec 141ms 784µs
 ```
+
+</div>
 
 <br />
 <div v-click>
@@ -720,9 +709,9 @@ Consider the following async function
 
 ```ts
 async function gatherUserInfo(user) {
-  const unused = 0;
+  const limit = user.limit || 10;
   const userPreferences = calculateUserPreferences(user);
-  const pictures = await queryPictures(user, userPreferences);
+  const pictures = await queryPictures(user, userPreferences, limit);
   
   return { name: user.name, preferences: userPreferences, pictures };
 }
@@ -741,9 +730,9 @@ While it’s common to use async without knowing exactly what’s happening unde
 ```ts {all|2-6|7-8|9-12|all}
 async function gatherUserInfo(user) {
   {
-    const unused = 0;
+    const limit = 0;
     const userPreferences = calculateUserPreferences(user);
-    const promise = queryPictures(user, userPreferences)
+    const promise = queryPictures(user, userPreferences, limit)
   }
     // await promise
     yield // ~> return
@@ -892,30 +881,6 @@ async function get_site_or_abort() {
 ```
 
 ---
-layout: image-left
-backgroundSize: clip
-image: structured_concurrency_1.png
----
-# Structured concurrency
-
-- A property that improves quality and clarity of concurrent programs.
-- It doesn't matter how many concurrent things are happening, the program structure is always a tree. No cycles, no dangling nodes.
-
----
-layout: image-left
-backgroundSize: clip
-image: structured_concurrency_2.png
----
-# Structured concurrency
-
-- Three properties must hold:
-  - __Cancellation propagation__: When a task is cancelled, it's guaranteed that all tasks underneath are also cancelled.
-  - __Error propagation__: When an error is created in the call-graph, it can always be propagated up to the callers, until there is a caller that handles it.
-  - __Ordering of operations__: When a function returns, you know it is done doing work.
-
-- Black box model of execution — the result code is composable.
-
----
 
 # Channels
 
@@ -990,6 +955,8 @@ for await (const item of generator()) {
 
 # Gotchas
 
+<v-clicks>
+
 - Don't use async when it's not necessary, especially don't run multithreaded for a few async stuff.
 - Don't mix heavy synchronous and asynchronous code -> blocking the caller thread
 - Message passing with channels over shared memory (often easier, if your design allows that)
@@ -998,6 +965,7 @@ for await (const item of generator()) {
   `Task.GetAwaiter().GetResult()`
 - Concurrent logging requires special care
 
+</v-clicks>
 ---
 
 # Resources
@@ -1070,3 +1038,30 @@ for await (const item of generator()) {
 - [JavaScript event-loop](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Event_loop)
 - [Java concurrency in practice](https://leon-wtf.github.io/doc/java-concurrency-in-practice.pdf)
 - [Correcting Common Async/Await Mistakes in .NET 8 by Brandon Minnick](https://www.youtube.com/watch?v=zhCRX3B7qwY)
+
+
+---
+layout: image-left
+backgroundSize: clip
+image: structured_concurrency_1.png
+---
+# Extra: Structured concurrency
+
+- A property that improves quality and clarity of concurrent programs.
+- It doesn't matter how many concurrent things are happening, the program structure is always a tree. No cycles, no dangling nodes.
+
+---
+layout: image-left
+backgroundSize: clip
+image: structured_concurrency_2.png
+---
+# Extra: Structured concurrency
+
+- Three properties must hold:
+  - __Cancellation propagation__: When a task is cancelled, it's guaranteed that all tasks underneath are also cancelled.
+  - __Error propagation__: When an error is created in the call-graph, it can always be propagated up to the callers, until there is a caller that handles it.
+  - __Ordering of operations__: When a function returns, you know it is done doing work.
+
+- Black box model of execution — the result code is composable.
+
+---

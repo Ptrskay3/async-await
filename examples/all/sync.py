@@ -1,3 +1,4 @@
+# Run with: `python3 -m sync.py`
 import requests
 
 def fry_egg(name):

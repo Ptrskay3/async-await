@@ -1,3 +1,4 @@
+// Run with: `deno run --allow-net callback.js`
 function fryEgg(name) {
   return fetch(`http://127.0.0.1:3001/${name}`).then((resp) => resp.text());
 }

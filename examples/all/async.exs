@@ -1,3 +1,4 @@
+# Run with: `elixirc async.exs`.
 Application.ensure_all_started(:inets)
 Application.ensure_all_started(:httpc)
 

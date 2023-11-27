@@ -1,3 +1,4 @@
+// Run with: `deno run --allow-net sync_first_attempt.js`.
 function fryEgg(egg) {
   return fetch(`http://127.0.0.1:3001/${egg}`).then((resp) => resp.text());
 }

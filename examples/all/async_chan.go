@@ -1,3 +1,4 @@
+// Run with: `go run async_chan.go`.
 package main
 
 import (

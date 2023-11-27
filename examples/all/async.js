@@ -1,3 +1,4 @@
+// Run with: `deno run --allow-net async.js`.
 async function fryEgg(user) {
   const response = await fetch(`http://127.0.0.1:3001/${user}`);
   const result = await response.text();

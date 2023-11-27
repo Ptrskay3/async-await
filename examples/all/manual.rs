@@ -1,3 +1,5 @@
+// Run with: `cargo +nightly -Zscript manual.rs`
+
 //! ```cargo
 //! [dependencies]
 //! reqwest = { version = "0.11", features = ["blocking"] }

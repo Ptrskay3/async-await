@@ -1,3 +1,5 @@
+// Run with: `cargo +nightly -Zscript sync.rs`
+
 //! ```cargo
 //! [dependencies]
 //! tokio = { version = "1", features = ["macros", "rt-multi-thread", "time"] }

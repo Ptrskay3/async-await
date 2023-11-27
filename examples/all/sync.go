@@ -1,3 +1,4 @@
+// Run with: `go run sync.go`.
 package main
 
 import (

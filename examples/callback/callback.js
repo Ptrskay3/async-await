@@ -1,3 +1,5 @@
+// Run with: `node callback.js`.
+
 const http = require('http');
 
 for (const egg of ['A', 'B', 'C', 'D']) {

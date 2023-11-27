@@ -1,3 +1,5 @@
+// Run with: `go run select.go`.
+
 package main
 
 import (

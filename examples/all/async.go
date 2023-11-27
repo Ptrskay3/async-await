@@ -1,3 +1,4 @@
+// Run with: `go run async.go`.
 package main
 
 import (

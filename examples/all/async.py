@@ -1,3 +1,4 @@
+# Run with: `python3 -m async.py`
 import requests
 import asyncio
 
