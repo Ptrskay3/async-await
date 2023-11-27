@@ -1055,7 +1055,7 @@ layout: image-left
 backgroundSize: clip
 image: structured_concurrency_2.png
 ---
-# Extra: Structured concurrency
+# Structured concurrency
 
 - Three properties must hold:
   - __Cancellation propagation__: When a task is cancelled, it's guaranteed that all tasks underneath are also cancelled.
