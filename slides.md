@@ -240,7 +240,7 @@ Did I choose the task of "frying eggs" by accident?
 
 ---
 
-# Cooperative and preemptive scheduling
+# Scheduling
 
 <br>
 <br>
@@ -257,10 +257,6 @@ Did I choose the task of "frying eggs" by accident?
   - No explicit way to pause/resume.
   - OS[^1] threads, Goroutines (Go), BEAM VM (Elixir) use this type of scheduling
 
-<br>
-<br>
-<br>
-<br>
 <br>
 <br>
 <br>
