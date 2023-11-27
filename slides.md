@@ -229,7 +229,7 @@ Did I choose the task of "frying eggs" by accident?
 
 - In reality, the fastest part of computers is the CPU — memory, disk, network are all much slower.
 
-- Dealing with network, files or UI is ~80 of software you write.
+- Dealing with network, files or UI is ~80% of software you write.
 
 ---
 
