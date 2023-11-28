@@ -803,6 +803,11 @@ _(This is not actual working code, just to help you understand the model)_
 </tbody>
 </table>
 
+<br>
+<br>
+
+(and there're some other uncommon ones: `merge`, `chain`, `zip`)
+
 
 ---
 
