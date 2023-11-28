@@ -1059,5 +1059,3 @@ image: structured_concurrency_2.png
   - __Ordering of operations__: When a function returns, you know it is done doing work.
 
 - Black box model of execution — the result code is composable.
-
----
