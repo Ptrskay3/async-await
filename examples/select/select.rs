@@ -1,5 +1,7 @@
 // Run with: `cargo +nightly -Zscript select.rs`
 //! ```cargo
+//! [package]
+//! edition = "2021"
 //! [dependencies]
 //! tokio = { version = "1", features = ["macros", "rt-multi-thread", "time"] }
 //! reqwest = { version = "0.11" }

@@ -582,7 +582,7 @@ console.log(response);
 
 <br>
 
-- Notice it's not using a for-loop, it uses _Promise.all_.. Let's see why.
+- Notice it's not using a for-loop, it uses _Promise.all_.. We'll see soon why.
 
 </div>
 
@@ -776,7 +776,7 @@ _(This is not actual working code, just to help you understand the model)_
 
 # join/try_join
 
-- a.k.a. _Promise.all_/_Promise.allSettled_, _Task.WaitAll_, _asyncio.gather_, _Task.await_many_, ..
+- a.k.a. _Promise.all_/_Promise.allSettled_, _Task.WaitAll_, _asyncio.gather_, ..
 
 - Wait for multiple concurrent branches to complete, returning when **all** of them complete.
   - try_join: short-circuit on errors, cancel all remaining branches
@@ -795,7 +795,7 @@ async function attempt_to_get_two_sites_concurrently() {
 
 # join/try_join
 
-- a.k.a. _Promise.all_/_Promise.allSettled_, _Task.WaitAll_, _asyncio.gather_, _Task.await_many_, ..
+- a.k.a. _Promise.all_/_Promise.allSettled_, _Task.WaitAll_, _asyncio.gather_, ..
 
 - Wait for multiple concurrent branches to complete, returning when **all** of them complete.
   - try_join: short-circuit on errors, cancel all remaining branches
@@ -1056,5 +1056,3 @@ console.log('asyncWrapper done');
 ```
 
 <Logo src="javascript_logo.png" class="w-10" />
-
----
