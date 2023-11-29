@@ -1,4 +1,4 @@
-- run: examples/all/sync.py
+- run: examples/join/sync.py
 
 - run: examples/stream/stream.rs
 

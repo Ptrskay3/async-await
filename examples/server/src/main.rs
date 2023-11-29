@@ -33,7 +33,7 @@ async fn handler_fast(Path(name): Path<String>) -> String {
     name
 }
 
-// TO illustrate blocking the executor with a long-running synchronous call.
+// To illustrate blocking the executor with a long-running synchronous call.
 async fn handler_blocking(Path(name): Path<String>) -> String {
     tracing::warn!("incoming request (blocking)");
     std::thread::sleep(Duration::from_secs(2));
