@@ -80,11 +80,11 @@ print("Hello, async world!")
 
 <br>
 
-Concurrency and parallelism comes up in the context of CS, but in fact they're everywhere in real world processes.
+The words _concurrent_ and _parallel_ almost mean the same by intuition.
 
 <div v-click>
 
-The words _concurrent_ and _parallel_ almost mean the same by intuition.
+Concurrency and parallelism comes up in the context of CS, but in fact they're everywhere in real world processes.
 
 </div>
 
@@ -223,20 +223,13 @@ Did I choose the task of "frying eggs" by accident?
 
 - Concurrency is being able to break your program into tasks and then interleave these tasks.
 
-- Work units are paused and resumed sequentially
+- Work units are still sequential
 
 - Fast switching between them gives the illusion of "parallel"
 
 - In reality, the fastest part of computers is the CPU — memory, disk, network are all much slower.
 
-- Dealing with network, files or UI is ~80% of software you write.
-
----
-
-
-# Concurrency is hard
-
-<Youtube class="w-200 h-100" id="bXxCxhZCCUA"/>
+- Dealing with network, files or UI is _everywhere_.
 
 ---
 
@@ -499,7 +492,7 @@ func fryEgg(name string) string { /* ... */ }
 
 <div v-click>
 
-- Goroutines: stackful, concurrent, preemptively scheduled tasks
+- Goroutines: concurrent, preemptively scheduled tasks
 
 </div>
 
@@ -667,36 +660,6 @@ D
 </div>
 <Logo src="javascript_logo.png" class="w-10" />
 
-
----
-
-# Let's talk about JavaScript!
-
-How to bridge callbacks, promises and async/await?
-
-```js {all|1-3|5-12|14-19|all}
-function doSomethingThenCallback(f) {
-  f();
-}
-
-async function asyncWrapper() {
-  return await new Promise((resolve) => {
-    doSomethingThenCallback(() => {
-      console.log('in callback');
-      resolve();
-    });
-  });
-}
-
-console.log('start executing');
-
-await asyncWrapper();
-
-console.log('asyncWrapper done');
-```
-
-<Logo src="javascript_logo.png" class="w-10" />
-
 ---
 
 # Async under the hood
@@ -726,7 +689,7 @@ While it’s common to use async without knowing exactly what’s happening unde
 ```ts {all|2-6|7-8|9-12|all}
 async function gatherUserInfo(user) {
   {
-    const limit = 0;
+    const limit = user.limit || 10;
     const userPreferences = calculateUserPreferences(user);
     const promise = queryPictures(user, userPreferences, limit)
   }
@@ -1064,3 +1027,34 @@ image: structured_concurrency_2.png
   - __Ordering of operations__: When a function returns, you know it is done doing work.
 
 - Black box model of execution — the result code is composable.
+
+---
+
+# Extra: Let's talk about JavaScript!
+
+How to bridge callbacks, promises and async/await?
+
+```js {all|1-3|5-12|14-19|all}
+function doSomethingThenCallback(f) {
+  f();
+}
+
+async function asyncWrapper() {
+  return await new Promise((resolve) => {
+    doSomethingThenCallback(() => {
+      console.log('in callback');
+      resolve();
+    });
+  });
+}
+
+console.log('start executing');
+
+await asyncWrapper();
+
+console.log('asyncWrapper done');
+```
+
+<Logo src="javascript_logo.png" class="w-10" />
+
+---

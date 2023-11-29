@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"io"
 	"net/http"
-	// "time"
+	"time"
 )
 
 func main() {
@@ -23,9 +23,9 @@ func main() {
 	select {
 	case response := <-channel:
 		fmt.Println(response)
-		// case <-time.After(5 * time.Second):
-		// 	fmt.Println("Timed out")
-		// 	return
+		case <-time.After(5 * time.Second):
+			fmt.Println("Timed out")
+			return
 	}
 
 }
