@@ -84,13 +84,13 @@ The words _concurrent_ and _parallel_ almost mean the same by intuition.
 
 <div v-click>
 
-Concurrency and parallelism comes up in the context of CS, but in fact they're everywhere in real world processes.
+Actually they're __different__.
 
 </div>
 
 <div v-click>
 
-Actually they're __different__.
+Concurrency and parallelism come up in the context of CS, but in fact they're everywhere in real world processes.
 
 </div>
 
