@@ -590,78 +590,6 @@ console.log(response);
 
 ---
 
-# Let's talk about JavaScript!
-
-- JavaScript said to be _asynchronous and single threaded_.
-- The evolution of concurrency was: Callbacks -> Promises -> async/await
-- Let's try frying eggs synchronously!
-```js
-function fryEgg(egg) {
-  return fetch(`http://127.0.0.1:3001/${egg}`).then((resp) => resp.text());
-}
-
-for (const egg of ['A', 'B', 'C', 'D']) {
-  fryEgg(egg).then((res) => console.log(res));
-}
-```
-
-<Logo src="javascript_logo.png" class="w-10" />
-
-<div v-click>
-
-```bash
-╰─❯ timeit deno run --allow-net sync_first_attempt.js
-A
-B
-C
-D
-2sec 141ms 784µs
-```
-
-</div>
-
-<br />
-<div v-click>
-This is clearly running concurrently.
-</div>
-
-<Logo src="javascript_logo.png" class="w-10" />
-
-
----
-
-# Let's talk about JavaScript!
-
-```js {all|1-5|7-9|all}
-async function fryEgg(name) {
-  const response = await fetch(`http://127.0.0.1:3001/${name}`);
-  const result = await response.text();
-  return result;
-}
-
-for (const egg of ['A', 'B', 'C', 'D']) {
-  console.log(await fryEgg(egg));
-}
-```
-<div v-click>
-
-<br />
-<br />
-
-```bash
-╰─❯ timeit deno run --allow-net sync_second_attempt.js
-B
-A
-C
-D
-8sec 59ms 172µs 776ns
-```
-
-</div>
-<Logo src="javascript_logo.png" class="w-10" />
-
----
-
 # Async under the hood
 
 Consider the following async function
@@ -1028,6 +956,78 @@ image: structured_concurrency_2.png
   - __Ordering of operations__: When a function returns, you know it is done doing work.
 
 - Black box model of execution — the result code is composable.
+
+---
+
+# Extra: Let's talk about JavaScript!
+
+- JavaScript said to be _asynchronous and single threaded_.
+- The evolution of concurrency was: Callbacks -> Promises -> async/await
+- Let's try frying eggs synchronously!
+```js
+function fryEgg(egg) {
+  return fetch(`http://127.0.0.1:3001/${egg}`).then((resp) => resp.text());
+}
+
+for (const egg of ['A', 'B', 'C', 'D']) {
+  fryEgg(egg).then((res) => console.log(res));
+}
+```
+
+<Logo src="javascript_logo.png" class="w-10" />
+
+<div v-click>
+
+```bash
+╰─❯ timeit deno run --allow-net sync_first_attempt.js
+A
+B
+C
+D
+2sec 141ms 784µs
+```
+
+</div>
+
+<br />
+<div v-click>
+This is clearly running concurrently.
+</div>
+
+<Logo src="javascript_logo.png" class="w-10" />
+
+
+---
+
+# Extra: Let's talk about JavaScript!
+
+```js {all|1-5|7-9|all}
+async function fryEgg(name) {
+  const response = await fetch(`http://127.0.0.1:3001/${name}`);
+  const result = await response.text();
+  return result;
+}
+
+for (const egg of ['A', 'B', 'C', 'D']) {
+  console.log(await fryEgg(egg));
+}
+```
+<div v-click>
+
+<br />
+<br />
+
+```bash
+╰─❯ timeit deno run --allow-net sync_second_attempt.js
+B
+A
+C
+D
+8sec 59ms 172µs 776ns
+```
+
+</div>
+<Logo src="javascript_logo.png" class="w-10" />
 
 ---
 
