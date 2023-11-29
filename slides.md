@@ -849,8 +849,8 @@ for await (const item of generator()) {
 
 <v-clicks>
 
-- Don't use async when it's not necessary, especially don't run multithreaded for a few async stuff.
-- Don't mix heavy synchronous and asynchronous code -> blocking the caller thread
+- Don't force concurrency when it's not necessary, especially don't run multithreaded for a few async stuff.
+- Don't mix heavy synchronous and asynchronous code — remember, it's cooperative scheduling
 - Message passing with channels over shared memory (often easier, if your design allows that)
 - Shared memory errors/deadlocks - be careful with dependencies on other tasks
 - There's a way to invoke asynchronous code in synchronous context if you really want to, e.g.: in C#
