@@ -1002,6 +1002,7 @@ for await (const item of generator()) {
 - [JavaScript event-loop](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Event_loop)
 - [Java concurrency in practice](https://leon-wtf.github.io/doc/java-concurrency-in-practice.pdf)
 - [Correcting Common Async/Await Mistakes in .NET 8 by Brandon Minnick](https://www.youtube.com/watch?v=zhCRX3B7qwY)
+- [Green threads explained](https://c9x.me/articles/gthreads/intro.html)
 
 
 ---

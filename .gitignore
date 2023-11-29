@@ -8,3 +8,4 @@ components.d.ts
 target/
 .elixir_ls
 *.beam
+__pycache__/*
